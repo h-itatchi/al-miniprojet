@@ -1,16 +1,66 @@
 package com.example.courseservice.DATA.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private String name;
     private String description;
+    private int credits;
+    private int coefficient;
+    @ElementCollection
+    private Set<Long> teachers;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public void setCredits(int credits) {
+        this.credits = credits;
+    }
+
+    public int getCoefficient() {
+        return coefficient;
+    }
+
+    public void setCoefficient(int coefficient) {
+        this.coefficient = coefficient;
+    }
+
+    public Set<Long> getTeachers() {
+        return teachers;
+    }
+
+    public void setTeachers(Set<Long> teachers) {
+        this.teachers = teachers;
+    }
 }

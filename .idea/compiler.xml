@@ -9,6 +9,7 @@
         <module name="course-service" />
         <module name="proxy-service" />
         <module name="config-service" />
+        <module name="discovery-service" />
         <module name="al-miniprojet" />
       </profile>
     </annotationProcessing>
@@ -17,6 +18,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="config-service" options="-parameters" />
       <module name="course-service" options="-parameters" />
+      <module name="discovery-service" options="-parameters" />
       <module name="proxy-service" options="-parameters" />
     </option>
   </component>

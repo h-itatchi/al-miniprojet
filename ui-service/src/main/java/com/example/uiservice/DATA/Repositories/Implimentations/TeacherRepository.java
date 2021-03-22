@@ -76,4 +76,9 @@ public class TeacherRepository implements TeachersRepo {
     public void deleteAll() {
 
     }
+
+    @Override
+    public boolean valid(Teacher teacher) {
+        return false;
+    }
 }

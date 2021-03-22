@@ -6,21 +6,21 @@
 </head>
 <body>
 <h1 th:text="#{label.form.title}">form</h1>
-<form action="/" th:object="${user}" method="POST" enctype="utf8">
+<form action="/" th:object="${teacher}" method="POST" enctype="utf8">
     <div>
-        <label th:text="#{label.user.firstName}">first</label>
+        <label th:text="#{label.teacher.firstName}">first</label>
         <input th:field="*{firstName}"/>
         <p th:each="error: ${#fields.errors('firstName')}"
            th:text="${error}">Validation error</p>
     </div>
     <div>
-        <label th:text="#{label.user.lastName}">last</label>
+        <label th:text="#{label.teacher.lastName}">last</label>
         <input th:field="*{lastName}"/>
         <p th:each="error : ${#fields.errors('lastName')}"
            th:text="${error}">Validation error</p>
     </div>
     <div>
-        <label th:text="#{label.user.email}">email</label>
+        <label th:text="#{label.teacher.email}">email</label>
         <input type="email" th:field="*{email}"/>
         <p th:each="error : ${#fields.errors('email')}"
            th:text="${error}">Validation error</p>

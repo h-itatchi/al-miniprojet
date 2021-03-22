@@ -1,43 +1,48 @@
 package com.example.uiservice.DATA.Entities;
 
 
+import com.sun.istack.internal.NotNull;
+
 import java.util.ArrayList;
 
 public class Teacher {
 
-    private Long id;
-    private String nom;
-    private String prenom;
+    private long id;
+    @NotNull
+    private String lastName;
+    @NotNull
+    private String firstName;
     private String password;
     private String matchingPassword;
+    @NotNull
     private String email;
     private ArrayList<Course> courses;
 
     public Teacher() {
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public String getNom() {
-        return nom;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getPassword() {

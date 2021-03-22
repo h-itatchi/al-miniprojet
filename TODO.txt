@@ -3,6 +3,7 @@ TODO {
             - eureka(Client)
         # Course-Service
             - eureka(Client)
+            - Add Entities (TD/TP)
         # Discovery-Service
             - eureka(Server)
         # Proxy-Service
@@ -12,6 +13,8 @@ TODO {
             - eureka(Client)
         # UI-Service
             - eureka(Client)
+            - implement Repositories
+            - thymeleaf test
     }
 
 Completed {

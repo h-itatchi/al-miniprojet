@@ -1,0 +1,60 @@
+TODO {
+        # Config-Service
+            - eureka(Client)
+        # Course-Service
+            - eureka(Client)
+        # Discovery-Service
+            - eureka(Server)
+        # Proxy-Service
+            - eureka(Client)
+        # Teachers-Service
+            - RestRepository
+            - eureka(Client)
+        # UI-Service
+            - eureka(Client)
+    }
+
+Completed {
+    # Config-Service
+        -
+    # Course-Service
+        - RestRepository
+    # Discovery-Service
+        -
+    # Proxy-Service
+        -
+    # Teachers-Service
+        -
+    # UI-Service
+        -
+}
+
+Continue Update {
+    # Config-Service
+        -
+    # Course-Service
+        -
+    # Discovery-Service
+        -
+    # Proxy-Service
+        -
+    # Teachers-Service
+        -
+    # UI-Service
+        -
+}
+
+TO ADD {
+    # Config-Service
+        -
+    # Course-Service
+        -
+    # Discovery-Service
+        -
+    # Proxy-Service
+        -
+    # Teachers-Service
+        -
+    # UI-Service
+        -
+}

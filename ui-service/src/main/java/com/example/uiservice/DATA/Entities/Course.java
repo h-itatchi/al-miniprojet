@@ -10,7 +10,7 @@ public class Course {
     private String description;
     private int credits;
     private int coefficient;
-    private ArrayList<Teacher> teachers;
+    private ArrayList<Integer> teachers;
 
     public Long getId() {
         return id;
@@ -52,11 +52,11 @@ public class Course {
         this.coefficient = coefficient;
     }
 
-    public ArrayList<Teacher> getTeachers() {
+    public ArrayList<Integer> getTeachers() {
         return teachers;
     }
 
-    public void setTeachers(ArrayList<Teacher> teachers) {
+    public void setTeachers(ArrayList<Integer> teachers) {
         this.teachers = teachers;
     }
 }

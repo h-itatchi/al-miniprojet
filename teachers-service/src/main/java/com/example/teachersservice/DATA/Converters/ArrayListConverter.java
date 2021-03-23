@@ -29,9 +29,13 @@ public class ArrayListConverter<T> implements AttributeConverter<ArrayList<T>, S
     @Override
     public ArrayList<T> convertToEntityAttribute(String jsonList) {
 
-        ArrayList<T> customerInfo = null;
+        ArrayList<T> customerInfo = new ArrayList<>();
+        ArrayList<T> temp;
         try {
-            customerInfo = objectMapper.readValue(jsonList, ArrayList.class);
+            temp = objectMapper.readValue(jsonList, ArrayList.class);
+            if (temp != null) {
+                customerInfo.addAll(temp);
+            }
         } catch (final IOException e) {
             logger.error("JSON reading error", e);
         }

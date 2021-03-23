@@ -1,24 +1,21 @@
 package com.example.uiservice.DATA.Entities;
 
-
-import com.sun.istack.internal.NotNull;
-
 import java.util.ArrayList;
 
 public class Teacher {
 
     private long id;
-    @NotNull
     private String lastName;
-    @NotNull
     private String firstName;
     private String password;
     private String matchingPassword;
-    @NotNull
     private String email;
-    private ArrayList<Course> courses;
+    private ArrayList<Integer> courses;
+    private ArrayList<String> roles;
 
     public Teacher() {
+        courses = new ArrayList<>();
+        roles = new ArrayList<>();
     }
 
     public long getId() {
@@ -69,11 +66,19 @@ public class Teacher {
         this.email = email;
     }
 
-    public ArrayList<Course> getCourses() {
+    public ArrayList<Integer> getCourses() {
         return courses;
     }
 
-    public void setCourses(ArrayList<Course> courses) {
+    public void setCourses(ArrayList<Integer> courses) {
         this.courses = courses;
+    }
+
+    public ArrayList<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(ArrayList<String> roles) {
+        this.roles = roles;
     }
 }

@@ -15,8 +15,11 @@ TODO {
             - eureka(Client)
             - implement Repositories
             - thymeleaf test
-            - Add Teacher
             - routing
+            - Roles problem
+            - Custom Validation
+                * Email
+                * Password strength - matching
     }
 
 Completed {
@@ -31,7 +34,9 @@ Completed {
     # Teachers-Service
         -
     # UI-Service
-        -
+        - adding Spring Security
+        - Add Teacher
+
 }
 
 Continue Update {
@@ -46,7 +51,7 @@ Continue Update {
     # Teachers-Service
         -
     # UI-Service
-        -
+        - adding Spring Security
 }
 
 TO ADD {

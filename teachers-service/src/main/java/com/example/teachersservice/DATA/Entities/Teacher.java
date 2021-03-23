@@ -10,21 +10,27 @@ public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
     private String firstName;
     private String lastName;
+    private String password;
+    private String matchingPassword;
     private String email;
     @Convert(converter = ArrayListConverter.class)
-    private ArrayList<Long> courses;
+    private ArrayList<Integer> courses;
+    @Convert(converter = ArrayListConverter.class)
+    private ArrayList<String> roles;
 
     public Teacher() {
+        courses = new ArrayList<>();
+        roles = new ArrayList<>();
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -52,11 +58,35 @@ public class Teacher {
         this.email = email;
     }
 
-    public ArrayList<Long> getCourses() {
+    public ArrayList<Integer> getCourses() {
         return courses;
     }
 
-    public void setCourses(ArrayList<Long> courses) {
+    public void setCourses(ArrayList<Integer> courses) {
         this.courses = courses;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getMatchingPassword() {
+        return matchingPassword;
+    }
+
+    public void setMatchingPassword(String matchingPassword) {
+        this.matchingPassword = matchingPassword;
+    }
+
+    public ArrayList<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(ArrayList<String> roles) {
+        this.roles = roles;
     }
 }

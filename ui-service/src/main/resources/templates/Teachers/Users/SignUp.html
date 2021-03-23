@@ -5,39 +5,32 @@
     <title>Add new Teacher</title>
 </head>
 <body>
-<h1 th:text="#{label.form.title}">form</h1>
-<form action="/" th:object="${teacher}" method="POST" enctype="utf8">
+<h1>form</h1>
+<h1 th:text="${message}">form</h1>
+<form action="/teachers/registration" th:object="${teacher}" method="POST" enctype="utf8">
     <div>
-        <label th:text="#{label.teacher.firstName}">first</label>
-        <input th:field="*{firstName}"/>
-        <p th:each="error: ${#fields.errors('firstName')}"
-           th:text="${error}">Validation error</p>
+        <label>first</label>
+        <input th:field="*{firstName}" value="${teacher.firstName}"/>
     </div>
     <div>
-        <label th:text="#{label.teacher.lastName}">last</label>
-        <input th:field="*{lastName}"/>
-        <p th:each="error : ${#fields.errors('lastName')}"
-           th:text="${error}">Validation error</p>
+        <label>last</label>
+        <input th:field="*{lastName}" value="${teacher.lastName}"/>
     </div>
     <div>
-        <label th:text="#{label.teacher.email}">email</label>
-        <input type="email" th:field="*{email}"/>
-        <p th:each="error : ${#fields.errors('email')}"
-           th:text="${error}">Validation error</p>
+        <label>email</label>
+        <input type="email" th:field="*{email}" value="${teacher.email}"/>
     </div>
     <div>
-        <label th:text="#{label.user.password}">password</label>
-        <input type="password" th:field="*{password}"/>
-        <p th:each="error : ${#fields.errors('password')}"
-           th:text="${error}">Validation error</p>
+        <label>password</label>
+        <input type="password" th:field="*{password}" value="${teacher.password}"/>
     </div>
     <div>
-        <label th:text="#{label.user.confirmPass}">confirm</label>
+        <label>confirm</label>
         <input type="password" th:field="*{matchingPassword}"/>
     </div>
-    <button type="submit" th:text="#{label.form.submit}">submit</button>
+    <button type="submit">submit</button>
 </form>
 
-<a th:href="@{/login.html}" th:text="#{label.form.loginLink}">login</a>
+<a th:href="@{/teachers/Login}">login</a>
 </body>
 </html>

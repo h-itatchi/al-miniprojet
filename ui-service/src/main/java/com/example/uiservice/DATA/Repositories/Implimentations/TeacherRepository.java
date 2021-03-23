@@ -1,84 +1,109 @@
 package com.example.uiservice.DATA.Repositories.Implimentations;
 
 import com.example.uiservice.DATA.Entities.Teacher;
-import com.example.uiservice.DATA.Repositories.Interface.TeachersRepo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
+import org.springframework.web.client.RestTemplate;
 
 @Component
-public class TeacherRepository implements TeachersRepo {
+public class TeacherRepository {
 
-    @Override
+    @Autowired
+    public PasswordEncoder encoder;
+
     public Iterable<Teacher> findAll(Sort sort) {
         return null;
     }
 
-    @Override
+
     public Page<Teacher> findAll(Pageable pageable) {
         return null;
     }
 
-    @Override
-    public <S extends Teacher> S save(S entity) {
-        return null;
+
+    public Teacher save(Teacher entity) {
+        entity.setPassword(encoder.encode(entity.getPassword()));
+        RestTemplate restTemplate = new RestTemplate();
+        HttpEntity<Teacher> request = new HttpEntity<>(entity);
+        return restTemplate.postForObject("http://localhost:9090/teacher", request, Teacher.class);
     }
 
-    @Override
+
     public <S extends Teacher> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
-    @Override
-    public Optional<Teacher> findById(Long aLong) {
-        return Optional.empty();
+
+    public Teacher findById(Long aLong) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject("http://localhost:9090/teacher" + "/" + aLong, Teacher.class);
     }
 
-    @Override
+
     public boolean existsById(Long aLong) {
         return false;
     }
 
-    @Override
+
     public Iterable<Teacher> findAll() {
         return null;
     }
 
-    @Override
+
     public Iterable<Teacher> findAllById(Iterable<Long> longs) {
         return null;
     }
 
-    @Override
+
     public long count() {
         return 0;
     }
 
-    @Override
+
     public void deleteById(Long aLong) {
 
     }
 
-    @Override
+
     public void delete(Teacher entity) {
 
     }
 
-    @Override
+
     public void deleteAll(Iterable<? extends Teacher> entities) {
 
     }
 
-    @Override
+
     public void deleteAll() {
 
     }
 
-    @Override
-    public boolean valid(Teacher teacher) {
-        return false;
+
+    public boolean valid(Teacher t) {
+        if (t.getFirstName().isEmpty()) {
+            return false;
+        }
+        if (t.getLastName().isEmpty()) {
+            return false;
+        }
+        if (t.getPassword().isEmpty()) {
+            return false;
+        }
+        if (t.getEmail().isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+
+    public Teacher findByEmail(String email) {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.getForObject("http://localhost:9090/teacher/search/findByEmail?email=" + email, Teacher.class);
     }
 }

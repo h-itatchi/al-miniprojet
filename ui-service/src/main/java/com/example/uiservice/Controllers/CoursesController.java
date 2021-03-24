@@ -17,22 +17,35 @@ import java.time.LocalDate;
 @Controller
 public class CoursesController {
 
-    @GetMapping("/test")
+    @GetMapping("/course/add-work")
     public String showWorkForm(WebRequest request, Model model) {
         Work w = new Work();
         w.setTitle("VUE JS");
         w.setDescription("AL");
         w.setDate(LocalDate.now());
-        model.addAttribute("work",w);
+        model.addAttribute("work", w);
         return "/addwork";
-        //return "/homepage";
     }
 
-    @PostMapping("/test")
+    @PostMapping("/course/add-work")
     public ModelAndView test(@ModelAttribute("work") final Work work, final HttpServletRequest request, final Errors errors) {
-        System.out.println(work.getTitle()+" "+work.getType());
+        System.out.println(work.getTitle() + " " + work.getType());
         Teacher teacher = new Teacher();
         ModelAndView mav = new ModelAndView("/homepage", "teacher", teacher);
         return mav;
     }
+
+    @GetMapping("/course/works")
+    public String showWorks(WebRequest request, Model model) {
+        Work w = new Work();
+        w.setTitle("VUE JS");
+        w.setDescription("AL");
+        w.setType("TP");
+        w.setLinkToPDF("http://wow");
+        w.setDate(LocalDate.now());
+        model.addAttribute("w", w);
+        model.addAttribute("name", "AL");
+        return "/CoursePage";
+    }
+
 }

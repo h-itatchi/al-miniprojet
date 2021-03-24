@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title th:text="${name}"></title>
+</head>
+<body>
+<div id="app">
+    <div th:replace="fragments/header :: header"/>
+    <v-container>
+        <v-col algin="center">
+            <v-row>
+                <v-card>
+                    <v-card-title th:text="${w.type}+' '+${w.title}"/>
+                    <v-card-subtitle th:text="${w.date}"/>
+                    <v-card-actions>
+                        <v-btn color="orange lighten-2" text>
+                            Description
+                        </v-btn>
+                        <v-spacer></v-spacer>
+                        <v-btn icon @click="show = !show">
+                            <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                        </v-btn>
+                    </v-card-actions>
+                    <v-expand-transition>
+                        <div v-show="show">
+                            <v-divider></v-divider>
+                            <v-card-text th:text="${w.description}">
+                            </v-card-text>
+                            <v-btn href="${w.linkToPDF}">PDF</v-btn>
+                        </div>
+                    </v-expand-transition>
+                </v-card>
+            </v-row>
+        </v-col>
+    </v-container>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data: () => ({
+            show: false,
+        }),
+    })
+</script>
+</body>
+</html>

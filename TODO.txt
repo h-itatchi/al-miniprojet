@@ -17,8 +17,9 @@ TODO {
             - thymeleaf test
             - routing
             - Roles problem
-            - teacher's Homepage {teacher's course}
+            - teacher's Homepage {teacher's course} {incomplete vuejs}
             - All Homepage
+            - thymeleaf fragments
     }
 
 Completed {

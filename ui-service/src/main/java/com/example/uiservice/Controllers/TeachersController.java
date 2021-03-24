@@ -24,16 +24,28 @@ public class TeachersController {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
     @Autowired
     public TeacherRepository teachersRepo;
+    //private Teacher currentTeacher;
 
     @GetMapping("/teachers/registration")
     public String showRegistrationForm(WebRequest request, Model model) {
+        Teacher currentTeacher = new Teacher();
+        currentTeacher.setFirstName("Hamza");
+        currentTeacher.setLastName("Benbelkacem");
+        currentTeacher.setEmail("itatchi.hamza@gmail.com");
+        currentTeacher.setPassword("123456");
+        model.addAttribute("teacher", currentTeacher);
+        return "SignUp";
+    }
+
+    @GetMapping("/teacher/homepage")
+    public String showHomePage(WebRequest request, Model model) {
         final Teacher teacher = new Teacher();
         teacher.setFirstName("Hamza");
         teacher.setLastName("Benbelkacem");
         teacher.setEmail("itatchi.hamza@gmail.com");
         teacher.setPassword("123456");
         model.addAttribute("teacher", teacher);
-        return "SignUp";
+        return "TeacherHomepage";
     }
 
     @PostMapping("/teachers/registration")
@@ -60,7 +72,4 @@ public class TeachersController {
         }
         return new ModelAndView("TeacherHomepage", "teacher", registered);
     }
-
-
-
 }

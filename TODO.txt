@@ -17,9 +17,8 @@ TODO {
             - thymeleaf test
             - routing
             - Roles problem
-            - Custom Validation
-                * Email
-                * Password strength - matching
+            - teacher's Homepage {teacher's course}
+            - All Homepage
     }
 
 Completed {
@@ -66,5 +65,7 @@ TO ADD {
     # Teachers-Service
         -
     # UI-Service
-        -
+        - Custom Validation
+            * Email
+            * Password strength - matching
 }

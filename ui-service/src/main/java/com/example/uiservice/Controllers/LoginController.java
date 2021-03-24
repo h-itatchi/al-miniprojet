@@ -25,25 +25,6 @@ public class LoginController {
 
     @GetMapping("/login")
     public String showLoginForm(WebRequest request, Model model) {
-        final Teacher teacher = new Teacher();
-        model.addAttribute("teacher", teacher);
         return "/login";
     }
-
-    /*@PostMapping("/perform_login")
-    public ModelAndView perform_login(@ModelAttribute("teacher") final Teacher teacher, final HttpServletRequest request, final Errors errors) {
-        LOGGER.debug("Logging in user account with information: {}", teacher);
-        if (!teachersRepo.existsById(teacher.getId())) {
-            return new ModelAndView("/Login", "teacher", teacher);
-        }
-        return new ModelAndView("/Teachers/TeachersTable", "teacher", teacher);
-    }
-
-
-    @GetMapping("/perform_logout")
-    public String perform_logout(WebRequest request, Model model) {
-        final Teacher teacher = new Teacher();
-        model.addAttribute("teacher", teacher);
-        return "/Login";
-    }*/
 }

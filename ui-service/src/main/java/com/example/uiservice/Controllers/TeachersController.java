@@ -5,11 +5,10 @@ import com.example.uiservice.DATA.Repositories.Implimentations.TeacherRepository
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
+@CrossOrigin
 public class TeachersController {
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
@@ -33,7 +33,7 @@ public class TeachersController {
         teacher.setEmail("itatchi.hamza@gmail.com");
         teacher.setPassword("123456");
         model.addAttribute("teacher", teacher);
-        return "Teachers/Users/SignUp";
+        return "SignUp";
     }
 
     @PostMapping("/teachers/registration")
@@ -54,11 +54,11 @@ public class TeachersController {
             }
         }
         if (!errMessage.isEmpty()) {
-            ModelAndView mav = new ModelAndView("Teachers/Users/SignUp", "teacher", teacher);
+            ModelAndView mav = new ModelAndView("SignUp", "teacher", teacher);
             mav.addObject("message", errMessage);
             return mav;
         }
-        return new ModelAndView("courses/CoursesTable", "teacher", registered);
+        return new ModelAndView("TeacherHomepage", "teacher", registered);
     }
 
 

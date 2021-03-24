@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 @Configuration
 // @ImportResource({ "classpath:webSecurityConfig.xml" })
 @EnableWebSecurity
-@Profile("!https")
+@Profile("!dev")
 public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -34,12 +34,6 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
-        /*auth.inMemoryAuthentication()
-                .withUser("user1").password(passwordEncoder().encode("pass")).roles("TEACHER")
-                .and()
-                .withUser("user2").password(passwordEncoder().encode("pass")).roles("USER")
-                .and()
-                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN");*/
     }
 
     @Override
@@ -47,8 +41,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/homepage*").hasRole("TEACHER")
+                .antMatchers("/course/**").hasRole("TEACHER")
                 .antMatchers("/anonymous*").anonymous()
                 .antMatchers("/teachers/registration*").permitAll()
                 .antMatchers("/login*").permitAll()
@@ -58,16 +51,16 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .loginProcessingUrl("/perform_login")
                 .defaultSuccessUrl("/homepage", true)
-                //.failureUrl("/login.html?error=true")
+                .failureUrl("/login?error=true")
                 .failureHandler(authenticationFailureHandler())
                 .and()
                 .logout()
                 .logoutUrl("/perform_logout")
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessHandler(logoutSuccessHandler());
-        //.and()
-        //.exceptionHandling().accessDeniedPage("/accessDenied");
-        //.exceptionHandling().accessDeniedHandler(accessDeniedHandler());
+                .logoutSuccessHandler(logoutSuccessHandler())
+                .and()
+                //.exceptionHandling().accessDeniedPage("/accessDenied")
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler());
     }
 
     @Bean

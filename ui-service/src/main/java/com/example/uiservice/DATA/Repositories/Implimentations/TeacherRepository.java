@@ -15,6 +15,12 @@ public class TeacherRepository {
 
     @Autowired
     public PasswordEncoder encoder;
+    private final RestTemplate restTemplate;
+    private final String teachersService="http://localhost:9090";
+
+    public TeacherRepository() {
+        restTemplate = new RestTemplate();
+    }
 
     public Iterable<Teacher> findAll(Sort sort) {
         return null;
@@ -28,9 +34,8 @@ public class TeacherRepository {
 
     public Teacher save(Teacher entity) {
         entity.setPassword(encoder.encode(entity.getPassword()));
-        RestTemplate restTemplate = new RestTemplate();
         HttpEntity<Teacher> request = new HttpEntity<>(entity);
-        return restTemplate.postForObject("http://localhost:9090/teacher", request, Teacher.class);
+        return restTemplate.postForObject(teachersService+"/teacher", request, Teacher.class);
     }
 
 
@@ -40,8 +45,7 @@ public class TeacherRepository {
 
 
     public Teacher findById(Long aLong) {
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject("http://localhost:9090/teacher" + "/" + aLong, Teacher.class);
+        return restTemplate.getForObject(teachersService+"/teacher" + "/" + aLong, Teacher.class);
     }
 
 
@@ -66,7 +70,7 @@ public class TeacherRepository {
 
 
     public void deleteById(Long aLong) {
-
+        restTemplate.delete(teachersService+"/teacher/"+aLong);
     }
 
 
@@ -103,7 +107,7 @@ public class TeacherRepository {
 
 
     public Teacher findByEmail(String email) {
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject("http://localhost:9090/teacher/search/findByEmail?email=" + email, Teacher.class);
+
+        return restTemplate.getForObject(teachersService+"/teacher/search/findByEmail?email=" + email, Teacher.class);
     }
 }

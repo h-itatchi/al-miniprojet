@@ -1,6 +1,9 @@
 package com.example.courseservice.DATA.Entities;
 
+import com.example.courseservice.DATA.Converters.ArrayListConverter;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Set;
 
 @Entity
@@ -13,8 +16,17 @@ public class Course {
     private String description;
     private int credits;
     private int coefficient;
-    @ElementCollection
-    private Set<Long> teachers;
+    private int volHTD;
+    private int volHTP;
+    private int volHCourse;
+    @Convert(converter = ArrayListConverter.class)
+    private ArrayList<Long> teachers;
+    @OneToMany(mappedBy = "course")
+    private Set<Work> works;
+
+    public Course() {
+        teachers = new ArrayList<>();
+    }
 
     public Long getId() {
         return id;
@@ -56,11 +68,43 @@ public class Course {
         this.coefficient = coefficient;
     }
 
-    public Set<Long> getTeachers() {
+    public int getVolHTD() {
+        return volHTD;
+    }
+
+    public void setVolHTD(int volHTD) {
+        this.volHTD = volHTD;
+    }
+
+    public int getVolHTP() {
+        return volHTP;
+    }
+
+    public void setVolHTP(int volHTP) {
+        this.volHTP = volHTP;
+    }
+
+    public int getVolHCourse() {
+        return volHCourse;
+    }
+
+    public void setVolHCourse(int volHCourse) {
+        this.volHCourse = volHCourse;
+    }
+
+    public ArrayList<Long> getTeachers() {
         return teachers;
     }
 
-    public void setTeachers(Set<Long> teachers) {
+    public void setTeachers(ArrayList<Long> teachers) {
         this.teachers = teachers;
+    }
+
+    public Set<Work> getWorks() {
+        return works;
+    }
+
+    public void setWorks(Set<Work> works) {
+        this.works = works;
     }
 }

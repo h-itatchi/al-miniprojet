@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +23,15 @@ public class TeacherUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Teacher user = repository.findByEmail(email);
-        if (user == null) {
+        Teacher user = null;
+        try {
+            user = repository.findByEmail(email);
+        } catch (HttpClientErrorException ex) {
+            System.out.println("User not found");
             throw new UsernameNotFoundException(
                     "No user found with username: " + email);
         }
+
         boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;

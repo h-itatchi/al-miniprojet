@@ -14,12 +14,10 @@ TODO {
         # UI-Service
             - eureka(Client)
             - implement Repositories
-            - thymeleaf test
             - routing
-            - Roles problem
-            - teacher's Homepage {teacher's course} {incomplete vuejs}
-            - All Homepage
-            - thymeleaf fragments
+            - teacher's Homepage {teacher's courses}
+            - Course page {list fo works TD/TP}
+            - Default Homepage
     }
 
 Completed {

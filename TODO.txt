@@ -14,9 +14,7 @@ TODO {
         # UI-Service
             - eureka(Client)
             - implement Repositories
-            - routing
             - teacher's Homepage {teacher's courses}
-            - Course page {list fo works TD/TP}
             - Default Homepage
     }
 
@@ -33,7 +31,12 @@ Completed {
         -
     # UI-Service
         - adding Spring Security
+        - Login
+        - SignUp
         - Add Teacher
+        - Add Work
+        - Course page {list of works TD/TP}
+            * add edit buttons for teachers
 
 }
 
@@ -49,7 +52,7 @@ Continue Update {
     # Teachers-Service
         -
     # UI-Service
-        - adding Spring Security
+        - Add Work resize card
 }
 
 TO ADD {

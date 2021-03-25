@@ -8,45 +8,72 @@
     <title th:text="${name}"></title>
 </head>
 <body>
-<div id="app">
+<div id="app" align="center">
     <div th:replace="fragments/header :: header"/>
-    <v-container>
-        <v-col algin="center">
-            <v-row>
-                <v-card>
-                    <v-card-title th:text="${w.type}+' '+${w.title}"/>
-                    <v-card-subtitle th:text="${w.date}"/>
+    <v-container class="grey lighten-5" fluid fill-height>
+        <v-row v-for="w in this.works" :key="w.id" align="center" justify="center">
+            <v-col ma="8">
+                <v-card class="mx-auto" width="800" tile>
+                    <v-card-title>{{w.type + ' ' + w.title}}</v-card-title>
+                    <v-card-subtitle align="start">{{w.date}}</v-card-subtitle>
                     <v-card-actions>
-                        <v-btn color="orange lighten-2" text>
+                        <v-btn color="orange lighten-2" @click="w.show = !w.show" text>
                             Description
                         </v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn icon @click="show = !show">
-                            <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                        <v-row dense>
+                            <v-col dense>
+                                <v-btn v-if="user==='teacher'" :href="'/course/works/delete/'+w.id">
+                                    Delete
+                                </v-btn>
+                            </v-col>
+                            <v-col dense>
+                                <v-btn v-if="user==='teacher'" :href="'/course/works/update/'+w.id">
+                                    Modify
+                                </v-btn>
+                            </v-col>
+                        </v-row>
+                        <v-btn icon @click="w.show = !w.show">
+                            <v-icon>{{ w.show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
                         </v-btn>
                     </v-card-actions>
                     <v-expand-transition>
-                        <div v-show="show">
+                        <div v-show="w.show" class="mx-auto">
                             <v-divider></v-divider>
-                            <v-card-text th:text="${w.description}">
-                            </v-card-text>
-                            <v-btn href="${w.linkToPDF}">PDF</v-btn>
+                            <v-card-text>{{w.description}}</v-card-text>
+                            <v-btn :href=w.linkToPDF block>PDF</v-btn>
                         </div>
                     </v-expand-transition>
                 </v-card>
-            </v-row>
-        </v-col>
+            </v-col>
+        </v-row>
     </v-container>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-<script>
+<script th:inline="javascript">
     new Vue({
         el: '#app',
         vuetify: new Vuetify(),
         data: () => ({
-            show: false,
+            works: [],
+            user: "student"
         }),
+        methods: {},
+        mounted() {
+            this.user =/*[[${usertype}]]*/ 'student'
+            /*[# th:each="w : ${works}"]*/
+            this.works.push({
+                id: /*[[${w.id}]]*/ 0,
+                title: /*[[${w.title}]]*/ '',
+                date: /*[[${w.date}]]*/ '',
+                linkToPDF: /*[[${w.linkToPDF}]]*/ '',
+                description: /*[[${w.description}]]*/ '',
+                type: /*[[${w.type}]]*/ '',
+                show: false
+            });
+            /*[/]*/
+        }
     })
 </script>
 </body>

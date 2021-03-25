@@ -8,53 +8,58 @@
     <title>ADD WORK</title>
 </head>
 <body>
-<div id="app">
+<div id="app" align="center">
     <div th:replace="fragments/header :: header"/>
     <v-container>
-        <v-card>
-            <v-container>
-                <v-form action="/course/add-work" th:object="${work}" method="POST" enctype="utf8">
-                    <v-row align="center">
-                        <v-col>
-                            <v-text-field type="text" label="Work Title" name="title" th:field="*{title}"/>
-                        </v-col>
-                        <v-col>
-                            <v-text-field type="text" label="Description" name="description" th:field="*{description}"/>
-                        </v-col>
-                        <v-col>
-                            <v-text-field type="text" label="Link To PDF" name="linkToPDF" th:field="*{linkToPDF}"/>
-                        </v-col>
-                        <v-col>
-                            <v-radio-group row v-model="radios">
-                                <v-radio
-                                        v-for="n in items"
-                                        :key="n"
-                                        :label="n"
-                                        :value="n"
-                                ></v-radio>
-                            </v-radio-group>
-                        </v-col>
-                        <v-col>
-                            <v-btn type="submit">Save</v-btn>
-                            <v-btn href="/teacher/homepage">Cancel</v-btn>
-                            <input type="hidden" :value="radios" th:field="*{type}"/>
-                        </v-col>
-                    </v-row>
+        <v-card class="mx-auto my-12 pa-3" max-width="600" elevation="24" shaped>
+            <v-card-title>ADD New Work (TD,TP)</v-card-title>
+            <v-card-text>
+                <v-form action="/course/works/add-work/" th:object="${work}" method="POST" enctype="utf8">
+                    <v-text-field type="text" label="Work Title" name="title" th:field="*{title}"
+                                  :value="title"></v-text-field>
+                    <v-radio-group row v-model="type">
+                        <v-radio
+                                v-for="n in items"
+                                :key="n"
+                                :label="n"
+                                :value="n"
+                        ></v-radio>
+                    </v-radio-group>
+                    <v-textarea type="text" label="Description" name="description"
+                                th:field="*{description}" outlined
+                                :value="description"></v-textarea>
+                    <v-text-field type="text" label="Link To PDF" name="linkToPDF"
+                                  th:field="*{linkToPDF}"
+                                  :value="linkToPDF"></v-text-field>
+                    <v-btn type="submit">Save</v-btn>
+                    <v-btn href="/teacher/homepage">Cancel</v-btn>
+                    <input type="hidden" :value="type" th:field="*{type}"/>
                 </v-form>
-            </v-container>
+            </v-card-text>
         </v-card>
     </v-container>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-<script>
+<script th:inline="javascript">
     new Vue({
         el: '#app',
         vuetify: new Vuetify(),
         data: () => ({
             items: ["TD", "TP", "Chapter"],
-            radios: "TD"
+            type: "TD",
+            title: "",
+            description: "",
+            linkToPDF: "",
+            dialogDelete: false
         }),
+        methods: {},
+        mounted() {
+            this.title =/*[[${work.title}]]*/ '';
+            this.description =/*[[${work.description}]]*/ '';
+            this.linkToPDF =/*[[${work.linkToPDF}]]*/ '';
+            this.type =/*[[${work.type}]]*/ 'TD';
+        }
     })
 </script>
 </body>

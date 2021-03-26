@@ -1,78 +1,86 @@
 package com.example.uiservice.DATA.Repositories.Implimentations;
 
 import com.example.uiservice.DATA.Entities.Course;
-import com.example.uiservice.DATA.Repositories.Interface.CourseRepo;
+import com.example.uiservice.DATA.Entities.Teacher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component
-public class CourseRepository implements CourseRepo {
-    @Override
+public class CourseRepository {
+
+    private final RestTemplate restTemplate;
+    private final String coursesService = "http://localhost:7070";
+
+    public CourseRepository() {
+        restTemplate = new RestTemplate();
+    }
+
     public Iterable<Course> findAll(Sort sort) {
         return null;
     }
 
-    @Override
     public Page<Course> findAll(Pageable pageable) {
         return null;
     }
 
-    @Override
-    public <S extends Course> S save(S entity) {
-        return null;
+    public Course save(Course entity) {
+        HttpEntity<Course> request = new HttpEntity<>(entity);
+        return restTemplate.postForObject(coursesService + "/course", request, Course.class);
     }
 
-    @Override
     public <S extends Course> Iterable<S> saveAll(Iterable<S> entities) {
         return null;
     }
 
-    @Override
     public Optional<Course> findById(Long aLong) {
         return Optional.empty();
     }
 
-    @Override
     public boolean existsById(Long aLong) {
         return false;
     }
 
-    @Override
-    public Iterable<Course> findAll() {
-        return null;
+    public ArrayList<Course> findAll() {
+        ArrayList<Course> courses;
+        courses = new ArrayList<Course>(Objects.requireNonNull(restTemplate.getForObject(coursesService + "/course/", ArrayList.class)));
+        return courses;
     }
 
-    @Override
     public Iterable<Course> findAllById(Iterable<Long> longs) {
         return null;
     }
 
-    @Override
     public long count() {
         return 0;
     }
 
-    @Override
     public void deleteById(Long aLong) {
 
     }
 
-    @Override
     public void delete(Course entity) {
 
     }
 
-    @Override
     public void deleteAll(Iterable<? extends Course> entities) {
 
     }
 
-    @Override
     public void deleteAll() {
 
+    }
+
+    public ArrayList<Course> getTeacherCourses(long id) {
+        ArrayList<Course> courses;
+        courses = new ArrayList<Course>(Objects.requireNonNull(restTemplate.getForObject(coursesService + "/course/search/findAllByTeachersContains?id=" + id, ArrayList.class)));
+        return courses;
     }
 }

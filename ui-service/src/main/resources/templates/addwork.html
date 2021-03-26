@@ -9,35 +9,40 @@
 </head>
 <body>
 <div id="app" align="center">
-    <div th:replace="fragments/header :: header"/>
-    <v-container>
-        <v-card class="mx-auto my-12 pa-3" max-width="600" elevation="24" shaped>
-            <v-card-title>ADD New Work (TD,TP)</v-card-title>
-            <v-card-text>
-                <v-form action="/course/works/add-work/" th:object="${work}" method="POST" enctype="utf8">
-                    <v-text-field type="text" label="Work Title" name="title" th:field="*{title}"
-                                  :value="title"></v-text-field>
-                    <v-radio-group row v-model="type">
-                        <v-radio
-                                v-for="n in items"
-                                :key="n"
-                                :label="n"
-                                :value="n"
-                        ></v-radio>
-                    </v-radio-group>
-                    <v-textarea type="text" label="Description" name="description"
-                                th:field="*{description}" outlined
-                                :value="description"></v-textarea>
-                    <v-text-field type="text" label="Link To PDF" name="linkToPDF"
-                                  th:field="*{linkToPDF}"
-                                  :value="linkToPDF"></v-text-field>
-                    <v-btn type="submit">Save</v-btn>
-                    <v-btn href="/teacher/homepage">Cancel</v-btn>
-                    <input type="hidden" :value="type" th:field="*{type}"/>
-                </v-form>
-            </v-card-text>
-        </v-card>
-    </v-container>
+    <v-app>
+        <v-main>
+            <div th:replace="fragments/header :: header"/>
+            <v-container>
+                <v-card class="mx-auto my-12 pa-3" max-width="600" elevation="24" shaped>
+                    <v-card-title>ADD New Work (TD,TP)</v-card-title>
+                    <v-card-text>
+                        <v-form action="/course/works/add-work/" th:object="${work}" method="POST" enctype="utf8">
+                            <v-text-field type="text" label="Work Title" name="title" th:field="*{title}"
+                                          :value="title"></v-text-field>
+                            <v-radio-group row v-model="type">
+                                <v-radio
+                                        v-for="n in items"
+                                        :key="n"
+                                        :label="n"
+                                        :value="n"
+                                ></v-radio>
+                            </v-radio-group>
+                            <v-textarea type="text" label="Description" name="description"
+                                        th:field="*{description}" outlined
+                                        :value="description"></v-textarea>
+                            <v-text-field type="text" label="Link To PDF" name="linkToPDF"
+                                          th:field="*{linkToPDF}"
+                                          :value="linkToPDF"></v-text-field>
+                            <v-btn type="submit">Save</v-btn>
+                            <v-btn href="/teacher/homepage">Cancel</v-btn>
+                            <input type="hidden" :value="type" th:field="*{type}"/>
+                            <input type="hidden" :value="type" th:field="*{type}"/>
+                        </v-form>
+                    </v-card-text>
+                </v-card>
+            </v-container>
+        </v-main>
+    </v-app>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
@@ -51,7 +56,8 @@
             title: "",
             description: "",
             linkToPDF: "",
-            dialogDelete: false
+            dialogDelete: false,
+            course: 0
         }),
         methods: {},
         mounted() {
@@ -59,6 +65,7 @@
             this.description =/*[[${work.description}]]*/ '';
             this.linkToPDF =/*[[${work.linkToPDF}]]*/ '';
             this.type =/*[[${work.type}]]*/ 'TD';
+            this.course =/*[[${course}]]*/ 'TD';
         }
     })
 </script>

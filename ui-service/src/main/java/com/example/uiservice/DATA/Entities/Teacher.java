@@ -8,14 +8,16 @@ public class Teacher {
     private String lastName;
     private String firstName;
     private String password;
-    private String matchingPassword;
+    private transient String matchingPassword;
     private String email;
     private ArrayList<Integer> courses;
+    private transient ArrayList<Course> courseList;
     private ArrayList<String> roles;
 
     public Teacher() {
         courses = new ArrayList<>();
         roles = new ArrayList<>();
+        courseList = new ArrayList<>();
     }
 
     public long getId() {
@@ -80,5 +82,13 @@ public class Teacher {
 
     public void setRoles(ArrayList<String> roles) {
         this.roles = roles;
+    }
+
+    public ArrayList<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(ArrayList<Course> courseList) {
+        this.courseList = courseList;
     }
 }

@@ -11,6 +11,7 @@ public class Course {
     private int credits;
     private int coefficient;
     private ArrayList<Integer> teachers;
+    private String teachersToString;
 
     public Long getId() {
         return id;
@@ -58,5 +59,13 @@ public class Course {
 
     public void setTeachers(ArrayList<Integer> teachers) {
         this.teachers = teachers;
+    }
+
+    public String getTeachersToString() {
+        return teachersToString;
+    }
+
+    public void setTeachersToString(String teachersToString) {
+        this.teachersToString = teachersToString;
     }
 }

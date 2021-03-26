@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 public class Work {
 
-    public static final String typeTD="TD";
-    public static final String typeTP="TP";
-    public static final String typeChapter="Chapter";
+    public static final String typeTD = "TD";
+    public static final String typeTP = "TP";
+    public static final String typeChapter = "Chapter";
 
     private long id;
     private String title;
@@ -14,6 +14,7 @@ public class Work {
     private String linkToPDF;
     private String description;
     private String type;
+    private long course;
 
     public Work() {
     }
@@ -78,4 +79,11 @@ public class Work {
         this.type = type;
     }
 
+    public long getCourse() {
+        return course;
+    }
+
+    public void setCourse(long course) {
+        this.course = course;
+    }
 }

@@ -10,13 +10,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+
 @Component
 public class TeacherRepository {
 
     @Autowired
     public PasswordEncoder encoder;
+    @Autowired
+    public CourseRepository repository;
     private final RestTemplate restTemplate;
-    private final String teachersService="http://localhost:9090";
+    private final String teachersService = "http://localhost:9090";
 
     public TeacherRepository() {
         restTemplate = new RestTemplate();
@@ -26,68 +30,43 @@ public class TeacherRepository {
         return null;
     }
 
-
     public Page<Teacher> findAll(Pageable pageable) {
         return null;
     }
 
-
     public Teacher save(Teacher entity) {
         entity.setPassword(encoder.encode(entity.getPassword()));
         HttpEntity<Teacher> request = new HttpEntity<>(entity);
-        return restTemplate.postForObject(teachersService+"/teacher", request, Teacher.class);
+        return restTemplate.postForObject(teachersService + "/teacher", request, Teacher.class);
     }
-
-
-    public <S extends Teacher> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
-    }
-
 
     public Teacher findById(Long aLong) {
-        return restTemplate.getForObject(teachersService+"/teacher" + "/" + aLong, Teacher.class);
+        return restTemplate.getForObject(teachersService + "/teacher" + "/" + aLong, Teacher.class);
     }
-
 
     public boolean existsById(Long aLong) {
         return false;
     }
 
-
-    public Iterable<Teacher> findAll() {
+    public ArrayList<Teacher> findAll() {
         return null;
     }
-
 
     public Iterable<Teacher> findAllById(Iterable<Long> longs) {
         return null;
     }
 
-
     public long count() {
         return 0;
     }
 
-
     public void deleteById(Long aLong) {
-        restTemplate.delete(teachersService+"/teacher/"+aLong);
+        restTemplate.delete(teachersService + "/teacher/" + aLong);
     }
-
 
     public void delete(Teacher entity) {
 
     }
-
-
-    public void deleteAll(Iterable<? extends Teacher> entities) {
-
-    }
-
-
-    public void deleteAll() {
-
-    }
-
 
     public boolean valid(Teacher t) {
         if (t.getFirstName().isEmpty()) {
@@ -105,9 +84,11 @@ public class TeacherRepository {
         return true;
     }
 
-
     public Teacher findByEmail(String email) {
+        return restTemplate.getForObject(teachersService + "/teacher/search/findByEmail?email=" + email, Teacher.class);
+    }
 
-        return restTemplate.getForObject(teachersService+"/teacher/search/findByEmail?email=" + email, Teacher.class);
+    private void setTeacherCourses(Teacher teacher) {
+        teacher.setCourseList(repository.getTeacherCourses(teacher.getId()));
     }
 }

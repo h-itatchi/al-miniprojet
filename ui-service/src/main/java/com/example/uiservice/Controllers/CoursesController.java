@@ -27,14 +27,10 @@ public class CoursesController {
         works = new ArrayList<>(getWorks());
     }
 
-    @GetMapping(value = {"/course/works/add-work/"})
-    public String showWorkForm(Model model) {
-        Work w;
-        w = new Work();
-        w.setTitle("VUE JS");
-        w.setDescription("AL");
-        w.setDate(LocalDate.now());
-        model.addAttribute("work", w);
+    @GetMapping(value = {"/course/works/add-work/{course}"})
+    public String showWorkForm(Model model, @PathVariable String course) {
+        model.addAttribute("work", works.get(0));
+        model.addAttribute("course", course);
         return "/addwork";
     }
 
@@ -46,24 +42,26 @@ public class CoursesController {
         return mav;
     }
 
-    @GetMapping("/course/works")
-    public String showWorks(WebRequest request, Model model) {
+    @GetMapping("/course/works/{id}")
+    public String showWorks(WebRequest request, Model model, @PathVariable String id) {
         model.addAttribute("works", works);
         model.addAttribute("name", "AL");
+        model.addAttribute("course", id);
         model.addAttribute("usertype", "teacher");
         return "/CoursePage";
     }
 
-    @GetMapping("/course/works/delete/{id}")
-    public String deleteWork(@PathVariable String id) {
+    @GetMapping("/course/works/delete/{course}/{id}")
+    public String deleteWork(@PathVariable String id, @PathVariable String course) {
         works.removeIf(work -> Long.parseLong(id) == work.getId());
-        return "redirect:/course/works";
+        return "redirect:/course/works/" + course;
     }
 
-    @GetMapping("/course/works/update/{id}")
-    public String updateWork(@PathVariable String id, Model model) {
+    @GetMapping("/course/works/update/{course}/{id}")
+    public String updateWork(@PathVariable String id, Model model, @PathVariable String course) {
         Work work = works.stream().filter(w -> Long.parseLong(id) == w.getId()).findFirst().get();
         model.addAttribute("work", work);
+        model.addAttribute("course", course);
         return "/addwork";
     }
 

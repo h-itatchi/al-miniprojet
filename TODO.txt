@@ -3,7 +3,8 @@ TODO {
             - eureka(Client)
         # Course-Service
             - eureka(Client)
-            - Add Entities (TD/TP)
+            - add query for find by teacher
+            - work repository
         # Discovery-Service
             - eureka(Server)
         # Proxy-Service
@@ -14,8 +15,13 @@ TODO {
         # UI-Service
             - eureka(Client)
             - implement Repositories
+                * work repository
             - teacher's Homepage {teacher's courses}
             - Default Homepage
+            - teacher's info in course page
+            - addWork card title{add/update}
+            - appBar
+            - Manager page
     }
 
 Completed {
@@ -23,6 +29,7 @@ Completed {
         -
     # Course-Service
         - RestRepository
+        - Add Entities (TD/TP)
     # Discovery-Service
         -
     # Proxy-Service
@@ -59,7 +66,7 @@ TO ADD {
     # Config-Service
         -
     # Course-Service
-        -
+        - upload file
     # Discovery-Service
         -
     # Proxy-Service
@@ -67,6 +74,8 @@ TO ADD {
     # Teachers-Service
         -
     # UI-Service
+        - upload file
+        - send email to teacher
         - Custom Validation
             * Email
             * Password strength - matching

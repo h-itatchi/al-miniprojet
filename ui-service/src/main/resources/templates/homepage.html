@@ -1,10 +1,76 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <title>Home Page</title>
 </head>
 <body>
-
+<div id="app" align="center">
+    <v-app>
+        <v-main>
+            <div th:replace="fragments/header :: header"/>
+            <v-container class="grey lighten-5">
+                <v-row>
+                    <v-col v-for="c in courses" :key="c.id">
+                        <v-card class="mx-auto" max-width="344" outlined>
+                            <v-card :href="'/course/works/'+c.id" elevation="0">
+                                <v-list-item three-line>
+                                    <v-list-item-content>
+                                        <div class="overline mb-4">Course</div>
+                                        <v-list-item-title class="headline mb-1">{{ c.name }}</v-list-item-title>
+                                        <v-list-item-subtitle>{{ c.description }}</v-list-item-subtitle>
+                                        <v-list-item-subtitle>{{ c.teachers }}</v-list-item-subtitle>
+                                    </v-list-item-content>
+                                </v-list-item>
+                            </v-card>
+                            <v-card-actions v-if="user">
+                                <v-btn outlined rounded text :href="'/course/works/add-work/'+c.id">ADD SUPPORT</v-btn>
+                                <v-btn icon @click="c.show = !c.show">
+                                    <v-icon>{{ c.show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                                </v-btn>
+                            </v-card-actions>
+                            <v-expand-transition>
+                                <div v-show="c.show" class="mx-auto">
+                                    <v-divider></v-divider>
+                                    <v-card-text>{{c.description}}</v-card-text>
+                                </div>
+                            </v-expand-transition>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-main>
+    </v-app>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script th:inline="javascript">
+    new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data: () => ({
+            courses: [],
+            user: "student",
+        }),
+        methods: {},
+        mounted() {
+            this.user =/*[[${usertype}]]*/ 'student'
+            /*[# th:each="c : ${courses}"]*/
+            this.courses.push({
+                id: /*[[${c.id}]]*/ '0',
+                name: /*[[${c.name}]]*/'',
+                description: /*[[${c.description}]]*/'',
+                credits: /*[[${c.credits}]]*/'',
+                coefficient: /*[[${c.coefficient}]]*/'',
+                teachers: /*[[${c.teachersToString}]]*/'',
+                show: false
+            });
+            /*[/]*/
+        }
+    })
+</script>
 </body>
 </html>

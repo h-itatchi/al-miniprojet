@@ -2,6 +2,8 @@ package com.example.uiservice.DATA.Repositories.Implimentations;
 
 import com.example.uiservice.DATA.Entities.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class TeacherRepository {
@@ -19,11 +23,26 @@ public class TeacherRepository {
     public PasswordEncoder encoder;
     @Autowired
     public CourseRepository repository;
+    @Autowired
+    private DiscoveryClient discoveryClient;
     private final RestTemplate restTemplate;
-    private final String teachersService = "http://localhost:9090";
+    private final String teachersService;
+    private static final ArrayList<Teacher> loggedin = new ArrayList<>();
 
     public TeacherRepository() {
         restTemplate = new RestTemplate();
+        String baseUrl = "";
+        if (discoveryClient != null) {
+            List<ServiceInstance> instances = discoveryClient.getInstances("zuul-service");
+            if (!instances.isEmpty()) {
+                ServiceInstance serviceInstance = instances.get(0);
+                baseUrl = serviceInstance.getUri().toString();
+            }
+        } else {
+            System.out.println("instance not found");
+            baseUrl = "http://localhost:8181";
+        }
+        teachersService = baseUrl + "/teachers-service";
     }
 
     public Iterable<Teacher> findAll(Sort sort) {
@@ -90,5 +109,30 @@ public class TeacherRepository {
 
     private void setTeacherCourses(Teacher teacher) {
         teacher.setCourseList(repository.getTeacherCourses(teacher.getId()));
+    }
+
+    public String getTeacherFullName(String email) {
+        Teacher teacher = loggedin.stream().filter(teacher1 -> teacher1.getEmail().equals(email)).findFirst().get();
+        return (teacher.getLastName() + " " + teacher.getFirstName()).toUpperCase();
+    }
+
+    public String getTeacherFullName(Teacher teacher) {
+        return (teacher.getLastName() + " " + teacher.getFirstName()).toUpperCase();
+    }
+
+    public void addToLoggedIn(Teacher teacher) {
+        loggedin.add(teacher);
+    }
+
+    public void removeFromLoggedIn(String email) {
+        loggedin.removeIf(teacher -> teacher.getEmail().equals(email));
+    }
+
+    public Teacher getFromLoggedIn(String email) {
+        Optional<Teacher> t = loggedin.stream().filter(teacher1 -> teacher1.getEmail().equals(email)).findFirst();
+        if (t.isPresent()) {
+            return loggedin.stream().filter(teacher1 -> teacher1.getEmail().equals(email)).findFirst().get();
+        }
+        return null;
     }
 }

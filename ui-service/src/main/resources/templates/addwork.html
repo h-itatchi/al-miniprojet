@@ -14,7 +14,9 @@
             <div th:replace="fragments/header :: header"/>
             <v-container>
                 <v-card class="mx-auto my-12 pa-3" max-width="600" elevation="24" shaped>
-                    <v-card-title th:text="${update}?'UPDATE COURSE MATERIALS (TD,TP)':'ADD COURSE MATERIALS (TD,TP)'">ADD New Work </v-card-title>
+                    <v-card-title th:text="${update}?'UPDATE COURSE MATERIALS (TD,TP)':'ADD COURSE MATERIALS (TD,TP)'">
+                        ADD New Work
+                    </v-card-title>
                     <v-card-text>
                         <v-form action="/course/works/add-work/" th:object="${work}" method="POST" enctype="utf8">
                             <v-text-field type="text" label="Work Title" name="title" th:field="*{title}"
@@ -54,13 +56,13 @@
         data: () => ({
             items: ["TD", "TP", "Chapter"],
             type: "TD",
-            id:0,
+            id: 0,
             title: "",
             description: "",
             linkToPDF: "",
             dialogDelete: false,
             course: 0,
-            user:'teacher'
+            user: 'unauth'
         }),
         methods: {},
         mounted() {
@@ -70,6 +72,7 @@
             this.type =/*[[${work.type}]]*/ 'TD';
             this.id =/*[[${work.id}]]*/ 0;
             this.course =/*[[${course}]]*/ 0;
+            this.user =/*[[${usertype}]]*/ 'unauth';
         }
     })
 </script>

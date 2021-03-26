@@ -26,6 +26,7 @@ public class TeacherUserDetailsService implements UserDetailsService {
         Teacher user = null;
         try {
             user = repository.findByEmail(email);
+            repository.addToLoggedIn(user);
         } catch (HttpClientErrorException ex) {
             System.out.println("User not found");
             throw new UsernameNotFoundException(

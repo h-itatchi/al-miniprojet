@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.context.request.WebRequest;
 
 import java.security.Principal;
-import java.util.ArrayList;
 
 @Controller
 @CrossOrigin
@@ -31,29 +30,15 @@ public class WebController {
         if (request.getUserPrincipal() != null && !p.getName().isEmpty()) {
             return "redirect:/teacher/homepage";
         }
-        model.addAttribute("courses", setMockData());
-        model.addAttribute("usertype", "student");
+        model.addAttribute("courses", courseRepository.findAll());
+        model.addAttribute("usertype", "unauth");
         return "/homepage";
     }
 
-    @GetMapping("/")
+    @GetMapping({"/", "/course"})
     public String defaultPage() {
         return "redirect:" + path;
     }
 
-    private ArrayList<Course> setMockData() {
-        ArrayList<Course> courses = new ArrayList<>();
-        Course c;
-        for (long i = 0; i < 10; i++) {
-            c = new Course();
-            c.setId(i);
-            c.setName("AL");
-            c.setDescription("AL M2GL");
-            c.setCoefficient(4);
-            c.setCredits(5);
-            c.setTeachersToString("Teacher 1, Teacher 2, Teacher 3");
-            courses.add(c);
-        }
-        return courses;
-    }
+
 }

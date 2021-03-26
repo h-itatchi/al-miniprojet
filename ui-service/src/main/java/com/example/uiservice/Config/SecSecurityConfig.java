@@ -43,6 +43,7 @@ public class SecSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/course/**").authenticated()
                 .antMatchers("/teachers/registration*").permitAll()
+                .antMatchers("/course/add-course").permitAll()
                 .antMatchers("/login*").permitAll()
                 .antMatchers("/homepage*").permitAll()
                 .anyRequest().authenticated()

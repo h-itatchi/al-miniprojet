@@ -18,9 +18,12 @@ public class CourseRepository {
 
     private final RestTemplate restTemplate;
     private final String coursesService = "http://localhost:7070";
+    private final ArrayList<Course> courses;
+
 
     public CourseRepository() {
         restTemplate = new RestTemplate();
+        courses = new ArrayList<>(setMockData());
     }
 
     public Iterable<Course> findAll(Sort sort) {
@@ -32,16 +35,15 @@ public class CourseRepository {
     }
 
     public Course save(Course entity) {
-        HttpEntity<Course> request = new HttpEntity<>(entity);
-        return restTemplate.postForObject(coursesService + "/course", request, Course.class);
+        /*HttpEntity<Course> request = new HttpEntity<>(entity);
+        return restTemplate.postForObject(coursesService + "/course", request, Course.class);*/
+        entity.setId((long) courses.size());
+        courses.add(entity);
+        return entity;
     }
 
-    public <S extends Course> Iterable<S> saveAll(Iterable<S> entities) {
-        return null;
-    }
-
-    public Optional<Course> findById(Long aLong) {
-        return Optional.empty();
+    public Course findById(long aLong) {
+        return courses.stream().filter(w -> aLong == w.getId()).findFirst().get();
     }
 
     public boolean existsById(Long aLong) {
@@ -49,8 +51,8 @@ public class CourseRepository {
     }
 
     public ArrayList<Course> findAll() {
-        ArrayList<Course> courses;
-        courses = new ArrayList<Course>(Objects.requireNonNull(restTemplate.getForObject(coursesService + "/course/", ArrayList.class)));
+        /*ArrayList<Course> courses;
+        courses = new ArrayList<Course>(Objects.requireNonNull(restTemplate.getForObject(coursesService + "/course/", ArrayList.class)));*/
         return courses;
     }
 
@@ -62,8 +64,8 @@ public class CourseRepository {
         return 0;
     }
 
-    public void deleteById(Long aLong) {
-
+    public void deleteById(long aLong) {
+        courses.removeIf(course -> course.getId() == aLong);
     }
 
     public void delete(Course entity) {
@@ -82,5 +84,25 @@ public class CourseRepository {
         ArrayList<Course> courses;
         courses = new ArrayList<Course>(Objects.requireNonNull(restTemplate.getForObject(coursesService + "/course/search/findAllByTeachersContains?id=" + id, ArrayList.class)));
         return courses;
+    }
+
+    private ArrayList<Course> setMockData() {
+        Course c;
+        ArrayList<Course> coursesList = new ArrayList<>();
+        for (long i = 0; i < 10; i++) {
+            c = new Course();
+            c.setId(i);
+            c.setName("AL");
+            c.setDescription("AL M2GL");
+            c.setCoefficient(4);
+            c.setCredits(5);
+            c.setTeachersToString("Teacher 1, Teacher 2, Teacher 3");
+            coursesList.add(c);
+        }
+        return coursesList;
+    }
+
+    public boolean validate(Course course) {
+        return true;
     }
 }

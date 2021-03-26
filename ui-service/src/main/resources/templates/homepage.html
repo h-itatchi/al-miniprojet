@@ -27,7 +27,7 @@
                                 </v-list-item>
                             </v-card>
                             <v-card-actions>
-                                <v-btn v-if="user==='teacher'" outlined rounded text
+                                <v-btn v-if="user==='auth'" outlined rounded text
                                        :href="'/course/works/add-work/'+c.id">ADD MATERIALS
                                 </v-btn>
                                 <v-spacer></v-spacer>
@@ -56,11 +56,11 @@
         vuetify: new Vuetify(),
         data: () => ({
             courses: [],
-            user: "student",
+            user: "unauth",
         }),
         methods: {},
         mounted() {
-            this.user =/*[[${usertype}]]*/ 'student'
+            this.user =/*[[${usertype}]]*/ 'unauth'
             /*[# th:each="c : ${courses}"]*/
             this.courses.push({
                 id: /*[[${c.id}]]*/ '0',

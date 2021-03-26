@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title th:text="${update}?'UPDATE COURSE':'ADD NEW COURSE'"></title>
+</head>
+<body>
+<div id="app" align="center">
+    <v-app>
+        <v-main>
+            <div th:replace="fragments/header :: header"/>
+            <v-container>
+                <v-card class="mx-auto my-12 pa-3" max-width="600" elevation="24" shaped>
+                    <v-card-title th:text="${update}?'UPDATE COURSE':'ADD NEW COURSE'"></v-card-title>
+                    <v-card-text>
+                        <v-form action="/course/add-course/" th:object="${course}" method="POST" enctype="utf8">
+                            <v-text-field type="text" label="Course Name" name="name" th:field="*{name}"
+                                          :value="name"></v-text-field>
+                            <v-textarea type="text" label="Description" name="description"
+                                        th:field="*{description}" outlined
+                                        :value="description"></v-textarea>
+                            <v-text-field type="number" label="Credits" name="credits"
+                                          th:field="*{credits}"
+                                          :value="credits"></v-text-field>
+                            <v-text-field type="number" label="Coefficient" name="coefficient"
+                                          th:field="*{coefficient}"
+                                          :value="coefficient"></v-text-field>
+                            <v-text-field type="number" label="TD (Hours)" name="volHTD"
+                                          th:field="*{volHTD}"
+                                          :value="volHTD"></v-text-field>
+                            <v-text-field type="number" label="TP (Hours)" name="volHTP"
+                                          th:field="*{volHTP}"
+                                          :value="volHTP"></v-text-field>
+                            <v-text-field type="number" label="Course (Hours)" name="volHCourse"
+                                          th:field="*{volHCourse}"
+                                          :value="volHCourse"></v-text-field>
+                            <v-btn type="submit">Save</v-btn>
+                            <v-btn href="/course">Cancel</v-btn>
+                            <input type="hidden" :value="id" th:field="*{id}"/>
+                        </v-form>
+                    </v-card-text>
+                </v-card>
+            </v-container>
+        </v-main>
+    </v-app>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script th:inline="javascript">
+    new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data: () => ({
+            id: 0,
+            name: "",
+            description: "",
+            credits: "",
+            coefficient: false,
+            volHTD: false,
+            volHTP: false,
+            volHCourse: false,
+            user: 'auth'
+        }),
+        methods: {},
+        mounted() {
+            this.id =/*[[${course.id}]]*/ 0;
+            this.name =/*[[${course.name}]]*/ '';
+            this.description =/*[[${course.description}]]*/ '';
+            this.credits =/*[[${course.credits}]]*/ '';
+            this.coefficient =/*[[${course.coefficient}]]*/ 'TD';
+            this.volHTD = /*[[${course.volHTD}]]*/ 0;
+            this.volHTP = /*[[${course.volHTP}]]*/ 0;
+            this.volHCourse = /*[[${course.volHCourse}]]*/ 0;
+        }
+    })
+</script>
+</body>
+</html>

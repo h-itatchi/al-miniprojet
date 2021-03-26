@@ -25,12 +25,12 @@
                                 <v-spacer></v-spacer>
                                 <v-row dense>
                                     <v-col dense>
-                                        <v-btn v-if="user==='teacher'" @click="showDelete(w.id)">
+                                        <v-btn v-if="user==='auth'" @click="showDelete(w.id)">
                                             Delete
                                         </v-btn>
                                     </v-col>
                                     <v-col dense>
-                                        <v-btn v-if="user==='teacher'"
+                                        <v-btn v-if="user==='auth'"
                                                :href="'/course/works/update/'+course.id+'/'+w.id">
                                             Modify
                                         </v-btn>
@@ -75,7 +75,7 @@
         vuetify: new Vuetify(),
         data: () => ({
             works: [],
-            user: "student",
+            user: "unauth",
             course: {
                 id: 1,
                 name: "AL",
@@ -98,7 +98,7 @@
             },
         },
         mounted() {
-            this.user =/*[[${usertype}]]*/ 'student'
+            this.user =/*[[${usertype}]]*/ 'unauth'
             /*[# th:each="w : ${works}"]*/
             this.works.push({
                 id: /*[[${w.id}]]*/ 0,

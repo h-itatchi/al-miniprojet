@@ -18,10 +18,16 @@ TODO {
                 * work repository
             - teacher's Homepage {teacher's courses}
             - Default Homepage
-            - teacher's info in course page
+            - course page
+                * teacher's info
+                * full course's info
             - addWork card title{add/update}
             - appBar
             - Manager page
+                * CRUD course
+                * CRUD teachers
+                * set courses for teachers
+            - login/signup with vuejs
     }
 
 Completed {

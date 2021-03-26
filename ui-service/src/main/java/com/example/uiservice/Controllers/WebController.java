@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.context.request.WebRequest;
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 @Controller
@@ -23,8 +25,12 @@ public class WebController {
     private final static String path = "/homepage";
 
     @GetMapping("/homepage")
-    public String showHome(Model model) {
+    public String showHome(WebRequest request, Model model) {
         //model.addAttribute("courses", courseRepository.findAll());
+        Principal p = request.getUserPrincipal();
+        if (request.getUserPrincipal() != null && !p.getName().isEmpty()) {
+            return "redirect:/teacher/homepage";
+        }
         model.addAttribute("courses", setMockData());
         model.addAttribute("usertype", "student");
         return "/homepage";

@@ -5,7 +5,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-    <title>ADD WORK</title>
+    <title th:text="${update}?'UPDATE COURSE MATERIALS':'ADD COURSE MATERIALS'"></title>
 </head>
 <body>
 <div id="app" align="center">
@@ -14,7 +14,7 @@
             <div th:replace="fragments/header :: header"/>
             <v-container>
                 <v-card class="mx-auto my-12 pa-3" max-width="600" elevation="24" shaped>
-                    <v-card-title>ADD New Work (TD,TP)</v-card-title>
+                    <v-card-title th:text="${update}?'UPDATE COURSE MATERIALS (TD,TP)':'ADD COURSE MATERIALS (TD,TP)'">ADD New Work </v-card-title>
                     <v-card-text>
                         <v-form action="/course/works/add-work/" th:object="${work}" method="POST" enctype="utf8">
                             <v-text-field type="text" label="Work Title" name="title" th:field="*{title}"
@@ -36,7 +36,8 @@
                             <v-btn type="submit">Save</v-btn>
                             <v-btn href="/teacher/homepage">Cancel</v-btn>
                             <input type="hidden" :value="type" th:field="*{type}"/>
-                            <input type="hidden" :value="type" th:field="*{type}"/>
+                            <input type="hidden" :value="course" th:field="*{course}"/>
+                            <input type="hidden" :value="id" th:field="*{id}"/>
                         </v-form>
                     </v-card-text>
                 </v-card>
@@ -53,11 +54,13 @@
         data: () => ({
             items: ["TD", "TP", "Chapter"],
             type: "TD",
+            id:0,
             title: "",
             description: "",
             linkToPDF: "",
             dialogDelete: false,
-            course: 0
+            course: 0,
+            user:'teacher'
         }),
         methods: {},
         mounted() {
@@ -65,7 +68,8 @@
             this.description =/*[[${work.description}]]*/ '';
             this.linkToPDF =/*[[${work.linkToPDF}]]*/ '';
             this.type =/*[[${work.type}]]*/ 'TD';
-            this.course =/*[[${course}]]*/ 'TD';
+            this.id =/*[[${work.id}]]*/ 0;
+            this.course =/*[[${course}]]*/ 0;
         }
     })
 </script>

@@ -1,36 +1,46 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Add new Teacher</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title>ADD NEW TEACHER</title>
 </head>
 <body>
-<h1>form</h1>
-<h1 th:text="${message}">form</h1>
-<form action="/teachers/registration" th:object="${teacher}" method="POST" enctype="utf8">
-    <div>
-        <label>first</label>
-        <input th:field="*{firstName}" value="${teacher.firstName}"/>
-    </div>
-    <div>
-        <label>last</label>
-        <input th:field="*{lastName}" value="${teacher.lastName}"/>
-    </div>
-    <div>
-        <label>email</label>
-        <input type="email" th:field="*{email}" value="${teacher.email}"/>
-    </div>
-    <div>
-        <label>password</label>
-        <input type="password" th:field="*{password}" value="${teacher.password}"/>
-    </div>
-    <div>
-        <label>confirm</label>
-        <input type="password" th:field="*{matchingPassword}"/>
-    </div>
-    <button type="submit">submit</button>
-</form>
-
-<a th:href="@{/teachers/Login}">login</a>
+<div id="app">
+    <v-app>
+        <v-main>
+            <v-container>
+                <v-card class="mx-auto my-12 pa-3" max-width="600" elevation="24" shaped>
+                    <v-card-title>ADD NEW TEACHER</v-card-title>
+                    <v-card-text>
+                        <v-form action="/teachers/registration" th:object="${teacher}" method="POST" enctype="utf8">
+                            <v-text-field label="Last Name" th:field="*{lastName}"></v-text-field>
+                            <v-text-field label="First Name" th:field="*{firstName}"></v-text-field>
+                            <v-text-field label="Email" type="email" th:field="*{email}"></v-text-field>
+                            <v-text-field label="Password" type="password" th:field="*{password}"></v-text-field>
+                            <v-text-field label="Confirm Password" type="password" th:field="*{matchingPassword}"></v-text-field>
+                            <v-btn type="submit">submit</v-btn>
+                            <v-btn th:href="@{/homepage}">Cancel</v-btn>
+                        </v-form>
+                    </v-card-text>
+                </v-card>
+            </v-container>
+        </v-main>
+    </v-app>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script th:inline="javascript">
+    new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data: () => ({}),
+        methods: {},
+        mounted() {
+        }
+    })
+</script>
 </body>
 </html>

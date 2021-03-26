@@ -35,11 +35,15 @@ public class CoursesController {
     }
 
     @PostMapping("/course/works/add-work/")
-    public ModelAndView addUpdateWork(@ModelAttribute("work") final Work work) {
-        System.out.println(work.getTitle() + " " + work.getType());
-        Teacher teacher = new Teacher();
-        ModelAndView mav = new ModelAndView("/homepage", "teacher", teacher);
-        return mav;
+    public String addUpdateWork(@ModelAttribute("work") final Work work,Model model) {
+        Work work1 = works.stream().filter(w -> work.getId() == w.getId()).findFirst().get();
+        work1.setType(work.getType());
+        work1.setTitle(work.getTitle());
+        work1.setDate(work.getDate());
+        work1.setDescription(work.getDescription());
+        work1.setLinkToPDF(work.getLinkToPDF());
+        work1.setCourse(work.getCourse());
+        return "redirect:/course/works/"+work.getCourse();
     }
 
     @GetMapping("/course/works/{id}")
@@ -62,6 +66,7 @@ public class CoursesController {
         Work work = works.stream().filter(w -> Long.parseLong(id) == w.getId()).findFirst().get();
         model.addAttribute("work", work);
         model.addAttribute("course", course);
+        model.addAttribute("update", true);
         return "/addwork";
     }
 

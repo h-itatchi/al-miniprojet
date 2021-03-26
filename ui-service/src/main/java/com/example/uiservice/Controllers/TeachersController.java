@@ -47,6 +47,7 @@ public class TeachersController {
         //model.addAttribute("courses", teacher.getCourseList());
         model.addAttribute("courses", setMockData());
         model.addAttribute("usertype", "teacher");
+        model.addAttribute("username", (teacher.getLastName() + " " + teacher.getFirstName()).toUpperCase());
         return "homepage";
     }
 

@@ -6,10 +6,16 @@
 </head>
 <body>
 <div th:fragment="header">
-    <v-container class="grey lighten-5" fluid fill-height width="1000px">
+    <v-container class="grey lighten-5" fluid fill-height width="1000">
         <v-app-bar color="red">
-            <v-btn>
+            <v-toolbar-title>E-Learning</v-toolbar-title>
+            <v-spacer></v-spacer>
+            <v-btn text disabled color="primary--text" v-if="user==='teacher'" th:text="${username}"></v-btn>
+            <v-btn v-if="user==='teacher'" href="/perform_logout" color="secondary">
                 Logout
+            </v-btn>
+            <v-btn v-if="user==='student'" href="/login" color="secondary">
+                Login
             </v-btn>
         </v-app-bar>
     </v-container>

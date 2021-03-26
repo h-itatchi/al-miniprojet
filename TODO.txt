@@ -16,18 +16,16 @@ TODO {
             - eureka(Client)
             - implement Repositories
                 * work repository
-            - teacher's Homepage {teacher's courses}
             - Default Homepage
             - course page
                 * teacher's info
                 * full course's info
-            - addWork card title{add/update}
             - appBar
+                * fade-img-on-scroll
             - Manager page
                 * CRUD course
                 * CRUD teachers
                 * set courses for teachers
-            - login/signup with vuejs
     }
 
 Completed {
@@ -50,6 +48,9 @@ Completed {
         - Add Work
         - Course page {list of works TD/TP}
             * add edit buttons for teachers
+        - teacher's Homepage {teacher's courses}
+        - addWork card title{add/update}
+        - login/signup with vuejs
 
 }
 
@@ -83,6 +84,7 @@ TO ADD {
         - upload file
         - send email to teacher
         - Custom Validation
+            * validate matching password
             * Email
             * Password strength - matching
 }

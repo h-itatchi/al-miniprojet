@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <title>Login</title>
 </head>
 <body>
-<h1>Login</h1>
-<form name='f' action="perform_login" method='POST'>
-    <table>
-        <tr>
-            <td>User:</td>
-            <td><input type='text' name='username' value=''></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type='password' name='password'/></td>
-        </tr>
-        <tr>
-            <td><input name="submit" type="submit" value="submit"/></td>
-        </tr>
-    </table>
-</form>
+<div id="app">
+    <v-app>
+        <v-main>
+            <v-container>
+                <v-card class="mx-auto my-12 pa-3" max-width="600" elevation="24" shaped>
+                    <v-card-title>LOGIN</v-card-title>
+                    <v-card-text>
+                        <v-form name='f' action="perform_login" method='POST'>
+                            <v-text-field label="EMAIL" type='text' name="username"></v-text-field>
+                            <v-text-field label="PASSWORD" type='password' name="password"></v-text-field>
+                            <v-btn type="submit">submit</v-btn>
+                            <v-btn href="/homepage">Cancel</v-btn>
+                        </v-form>
+                    </v-card-text>
+                </v-card>
+            </v-container>
+        </v-main>
+    </v-app>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script th:inline="javascript">
+    new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data: () => ({}),
+        methods: {},
+        mounted() {
+        }
+    })
+</script>
 </body>
 </html>

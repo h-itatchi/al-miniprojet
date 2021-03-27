@@ -11,5 +11,6 @@ public class ExposeEntityIdRestMvcConfiguration extends RepositoryRestConfigurer
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(Teacher.class);
+        config.useHalAsDefaultJsonMediaType(true);
     }
 }

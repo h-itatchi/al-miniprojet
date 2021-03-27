@@ -1,16 +1,22 @@
 package com.example.uiservice.DATA.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.data.annotation.Transient;
+
 import java.util.ArrayList;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Teacher {
 
     private long id;
-    private String lastName;
     private String firstName;
+    private String lastName;
     private String password;
+    @Transient
     private transient String matchingPassword;
     private String email;
     private ArrayList<Integer> courses;
+    @Transient
     private transient ArrayList<Course> courseList;
     private ArrayList<String> roles;
 

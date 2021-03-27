@@ -18,7 +18,7 @@ public class Work {
     private String linkToPDF;
     private String description;
     private String type;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Course course;
 
     public Work() {

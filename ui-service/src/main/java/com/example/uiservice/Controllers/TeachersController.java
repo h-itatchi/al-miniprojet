@@ -32,10 +32,6 @@ public class TeachersController {
     @GetMapping("/teachers/registration")
     public String showRegistrationForm(WebRequest request, Model model) {
         Teacher currentTeacher = new Teacher();
-        currentTeacher.setFirstName("Hamza");
-        currentTeacher.setLastName("Benbelkacem");
-        currentTeacher.setEmail("itatchi.hamza@gmail.com");
-        currentTeacher.setPassword("123456");
         model.addAttribute("teacher", currentTeacher);
         return "SignUp";
     }
@@ -46,8 +42,7 @@ public class TeachersController {
         if (request.getUserPrincipal() != null && !p.getName().isEmpty()) {
             final Teacher teacher = teachersRepo.getFromLoggedIn(p.getName());
             model.addAttribute("teacher", teacher);
-            //model.addAttribute("courses", teacher.getCourseList());
-            model.addAttribute("courses", courseRepo.findAll());
+            model.addAttribute("courses", courseRepo.getTeacherCourses(teacher.getId()));
             model.addAttribute("usertype", "auth");
             model.addAttribute("username", (teachersRepo.getTeacherFullName(teacher)));
         }

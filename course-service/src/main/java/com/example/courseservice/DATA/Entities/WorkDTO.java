@@ -1,37 +1,25 @@
-package com.example.uiservice.DATA.Entities;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+package com.example.courseservice.DATA.Entities;
 
 import java.time.LocalDate;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Work {
-
-    public static final String typeTD = "TD";
-    public static final String typeTP = "TP";
-    public static final String typeChapter = "Chapter";
-
+public class WorkDTO {
     private long id;
     private String title;
     private LocalDate date;
     private String linkToPDF;
     private String description;
     private String type;
-    private String course;
 
-    public Work() {
+    public WorkDTO(Work work) {
+        this.id = work.getId();
+        this.title = work.getTitle();
+        this.date = work.getDate();
+        this.linkToPDF = work.getLinkToPDF();
+        this.description = work.getDescription();
+        this.type = work.getType();
     }
 
-    public static String getTypeTD() {
-        return typeTD;
-    }
-
-    public static String getTypeTP() {
-        return typeTP;
-    }
-
-    public static String getTypeChapter() {
-        return typeChapter;
+    public WorkDTO() {
     }
 
     public long getId() {
@@ -80,13 +68,5 @@ public class Work {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public String getCourse() {
-        return course;
-    }
-
-    public void setCourse(String course) {
-        this.course = course;
     }
 }

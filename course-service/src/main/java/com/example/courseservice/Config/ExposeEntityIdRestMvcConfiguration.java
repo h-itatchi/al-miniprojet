@@ -1,6 +1,7 @@
 package com.example.courseservice.Config;
 
 import com.example.courseservice.DATA.Entities.Course;
+import com.example.courseservice.DATA.Entities.Work;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 import org.springframework.stereotype.Component;
@@ -11,5 +12,6 @@ public class ExposeEntityIdRestMvcConfiguration extends RepositoryRestConfigurer
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
         config.exposeIdsFor(Course.class);
+        config.exposeIdsFor(Work.class);
     }
 }

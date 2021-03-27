@@ -1,16 +1,9 @@
 package com.example.courseservice.DATA.Entities;
 
-import com.example.courseservice.DATA.Converters.ArrayListConverter;
-
-import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Set;
 
-@Entity
-public class Course {
+public class CourseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private String description;
@@ -19,13 +12,25 @@ public class Course {
     private int volHTD;
     private int volHTP;
     private int volHCourse;
-    @Convert(converter = ArrayListConverter.class)
     private ArrayList<Integer> teachers;
-    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
-    private Set<Work> works;
+    private final ArrayList<WorkDTO> works;
 
-    public Course() {
-        teachers = new ArrayList<>();
+    public CourseDTO(Course course) {
+        this.id = course.getId();
+        this.name = course.getName();
+        this.description = course.getDescription();
+        this.credits = course.getCredits();
+        this.coefficient = course.getCoefficient();
+        this.volHTD = course.getVolHTD();
+        this.volHTP = course.getVolHTP();
+        this.volHCourse = course.getVolHCourse();
+        this.teachers = course.getTeachers();
+        this.works = new ArrayList<>();
+        course.getWorks().forEach(work -> works.add(new WorkDTO(work)));
+    }
+
+    public CourseDTO() {
+        this.works = new ArrayList<>();
     }
 
     public long getId() {
@@ -100,11 +105,7 @@ public class Course {
         this.teachers = teachers;
     }
 
-    public Set<Work> getWorks() {
+    public ArrayList<WorkDTO> getWorks() {
         return works;
-    }
-
-    public void setWorks(Set<Work> works) {
-        this.works = works;
     }
 }

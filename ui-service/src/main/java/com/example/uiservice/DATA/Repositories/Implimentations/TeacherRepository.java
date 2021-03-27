@@ -1,6 +1,9 @@
 package com.example.uiservice.DATA.Repositories.Implimentations;
 
 import com.example.uiservice.DATA.Entities.Teacher;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -8,11 +11,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,9 +30,11 @@ public class TeacherRepository {
     public CourseRepository repository;
     @Autowired
     private DiscoveryClient discoveryClient;
+
     private final RestTemplate restTemplate;
     private final String teachersService;
     private static final ArrayList<Teacher> loggedin = new ArrayList<>();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     public TeacherRepository() {
         restTemplate = new RestTemplate();
@@ -37,9 +44,10 @@ public class TeacherRepository {
             if (!instances.isEmpty()) {
                 ServiceInstance serviceInstance = instances.get(0);
                 baseUrl = serviceInstance.getUri().toString();
+                System.out.println("Connecting using proxy instance from eureka server");
             }
         } else {
-            System.out.println("instance not found");
+            System.out.println("Connecting using only proxy");
             baseUrl = "http://localhost:8181";
         }
         teachersService = baseUrl + "/teachers-service";
@@ -68,7 +76,17 @@ public class TeacherRepository {
     }
 
     public ArrayList<Teacher> findAll() {
-        return null;
+        JsonNode json = restTemplate.getForObject(teachersService + "/teacher", JsonNode.class);
+        Teacher[] teachers = null;
+        try {
+            teachers = objectMapper.readValue(json.get("_embedded").get("teacher").toString(), Teacher[].class);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        if (teachers == null) {
+            teachers = new Teacher[]{};
+        }
+        return new ArrayList<>(Arrays.asList(teachers));
     }
 
     public Iterable<Teacher> findAllById(Iterable<Long> longs) {

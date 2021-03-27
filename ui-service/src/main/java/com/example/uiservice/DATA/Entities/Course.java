@@ -1,8 +1,11 @@
 package com.example.uiservice.DATA.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Course {
 
     private long id;
@@ -15,12 +18,13 @@ public class Course {
     private int volHCourse;
     private ArrayList<Integer> teachers;
     private String teachersToString;
+    private ArrayList<Work> works;
 
-    public Long getId() {
-        return id;
+    public Course() {
+        works = new ArrayList<>();
     }
 
-    public void setId(Long id) {
+    public Course(long id) {
         this.id = id;
     }
 
@@ -94,5 +98,21 @@ public class Course {
 
     public void setTeachersToString(String teachersToString) {
         this.teachersToString = teachersToString;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public ArrayList<Work> getWorks() {
+        return works;
+    }
+
+    public void setWorks(ArrayList<Work> works) {
+        this.works = works;
     }
 }

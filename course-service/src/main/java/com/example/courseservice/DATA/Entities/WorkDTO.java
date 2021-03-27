@@ -1,11 +1,12 @@
 package com.example.courseservice.DATA.Entities;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class WorkDTO {
     private long id;
     private String title;
-    private LocalDate date;
+    private Date date;
     private String linkToPDF;
     private String description;
     private String type;
@@ -38,11 +39,11 @@ public class WorkDTO {
         this.title = title;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

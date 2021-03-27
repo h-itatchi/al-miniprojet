@@ -89,8 +89,12 @@ public class TeacherRepository {
         return new ArrayList<>(Arrays.asList(teachers));
     }
 
-    public Iterable<Teacher> findAllById(Iterable<Long> longs) {
-        return null;
+    public ArrayList<Teacher> findAllById(ArrayList<Integer> longs) {
+        final ArrayList<Teacher> teachers = new ArrayList<>();
+        longs.forEach(id -> {
+            teachers.add(this.findById((long) id));
+        });
+        return teachers;
     }
 
     public long count() {
@@ -106,7 +110,7 @@ public class TeacherRepository {
     }
 
     public boolean valid(Teacher t) {
-        if (t.getFirstName().isEmpty()) {
+        /*if (t.getFirstName().isEmpty()) {
             return false;
         }
         if (t.getLastName().isEmpty()) {
@@ -117,7 +121,7 @@ public class TeacherRepository {
         }
         if (t.getEmail().isEmpty()) {
             return false;
-        }
+        }*/
         return true;
     }
 

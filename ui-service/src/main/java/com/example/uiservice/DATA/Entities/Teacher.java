@@ -12,7 +12,6 @@ public class Teacher {
     private String firstName;
     private String lastName;
     private String password;
-    @Transient
     private transient String matchingPassword;
     private String email;
     private ArrayList<Integer> courses;

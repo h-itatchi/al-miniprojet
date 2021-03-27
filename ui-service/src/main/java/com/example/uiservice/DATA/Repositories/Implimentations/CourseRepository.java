@@ -51,7 +51,7 @@ public class CourseRepository {
 
     public Course update(Course entity) {
         HttpEntity<Course> request = new HttpEntity<>(entity);
-        return restTemplate.patchForObject(coursesService + "/course", request, Course.class);
+        return restTemplate.postForObject(coursesService + "/course", request, Course.class);
     }
 
     public Course findById(long aLong) {

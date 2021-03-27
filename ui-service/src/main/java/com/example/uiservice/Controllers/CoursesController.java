@@ -1,7 +1,7 @@
 package com.example.uiservice.Controllers;
 
 import com.example.uiservice.DATA.Entities.Course;
-import com.example.uiservice.DATA.Entities.Work;
+import com.example.uiservice.DATA.Entities.Teacher;
 import com.example.uiservice.DATA.Repositories.Implimentations.CourseRepository;
 import com.example.uiservice.DATA.Repositories.Implimentations.TeacherRepository;
 import com.example.uiservice.DATA.Repositories.Implimentations.WorksRepository;
@@ -55,7 +55,7 @@ public class CoursesController {
     }
 
     @GetMapping("/course/update/{id}")
-    public String updateCourse(Model model, @PathVariable String id,WebRequest request) {
+    public String updateCourse(Model model, @PathVariable String id, WebRequest request) {
         Course course = courseRepo.findById(Long.parseLong(id));
         model.addAttribute("course", course);
         model.addAttribute("update", true);
@@ -72,11 +72,33 @@ public class CoursesController {
 
     @GetMapping("/course/works/{id}")
     public String showWorks(WebRequest request, Model model, @PathVariable String id) {
-        model.addAttribute("works", worksRepo.findAll());
+        Course course = courseRepo.findById(Long.parseLong(id));
+        course.teachersToString(teachersRepo.findAllById(course.getTeachers()));
+        model.addAttribute("works", worksRepo.findByCourses(id));
         model.addAttribute("name", "AL");
         model.addAttribute("course", id);
+        model.addAttribute("c", course);
         setModelHeader(model, request.getUserPrincipal());
         return "/CoursePage";
+    }
+
+    @GetMapping({"/course/set-teacher/{id}", "/t/{id}"})
+    public String showSetTeachers(WebRequest request, Model model, @PathVariable String id) {
+        setModelHeader(model, request.getUserPrincipal());
+        Course course = courseRepo.findById(Long.parseLong(id));
+        model.addAttribute("course", course);
+        model.addAttribute("teachers", getUnsignedTeachers(course.getTeachers()));
+        return "/setTeachersToCourses";
+    }
+
+    @GetMapping({"/course/{id}/{teacher}", "/t/{id}/{teacher}"})
+    public String setTeachers(WebRequest request, Model model, @PathVariable String id, @PathVariable String teacher) {
+
+        Course course = courseRepo.findById(Long.parseLong(id));
+        course.getTeachers().add(Integer.parseInt(teacher));
+        courseRepo.update(course);
+        System.out.println(course.getTeachers().size());
+        return "redirect:/t/"+id;
     }
 
     private void setModelHeader(Model model, Principal p) {
@@ -86,6 +108,14 @@ public class CoursesController {
         } else {
             model.addAttribute("usertype", "unauth");
         }
+    }
+
+    private ArrayList<Teacher> getUnsignedTeachers(final ArrayList<Integer> t) {
+        final ArrayList<Teacher> temp = new ArrayList<>(teachersRepo.findAll());
+        for (Integer teacher : t) {
+            temp.removeIf(teacher1 -> ((long) teacher == teacher1.getId()));
+        }
+        return temp;
     }
 
 }

@@ -74,6 +74,21 @@ public class WorksRepository {
         return new ArrayList<>(Arrays.asList(works));
     }
 
+    public ArrayList<Work> findByCourses(String id) {
+        JsonNode json = restTemplate.getForObject(worksService + "/course/" + id + "/works/", JsonNode.class);
+        System.out.println(json.toString());
+        Work[] works = null;
+        try {
+            works = objectMapper.readValue(json.get("_embedded").get("work").toString(), Work[].class);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        if (works == null) {
+            works = new Work[]{};
+        }
+        return new ArrayList<>(Arrays.asList(works));
+    }
+
     public void deleteById(long aLong) {
         restTemplate.delete(worksService + "/work/" + aLong);
     }

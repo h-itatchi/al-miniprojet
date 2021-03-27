@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title>SET TEACHERS FOR COURSES</title>
+</head>
+<body>
+<div id="app">
+    <v-app>
+        <v-main>
+            <v-container>
+                <v-card class="mx-auto my-12 pa-3" max-width="600" elevation="24" shaped>
+                    <v-card-title>LOGIN</v-card-title>
+                    <v-card-text>
+                        <v-form name='f' :action="'/t/'+course.id+'/'+selected" method='GET'>
+                            <v-btn text disabled>{{course.name}}</v-btn>
+                            <input type="hidden" :value="course.id" name="id"></input>
+                            <v-select name="teacher" :items="teachers" item-text="name" item-value="id"
+                                      label="Outlined style" outlined v-model="selected">
+                            </v-select>
+                            <v-btn type="submit">submit</v-btn>
+                            <v-btn href="/homepage">Cancel</v-btn>
+                        </v-form>
+                    </v-card-text>
+                </v-card>
+            </v-container>
+        </v-main>
+    </v-app>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+<script th:inline="javascript">
+    new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data: () => ({
+            teachers: [],
+            course: {
+                name: '',
+                id: 0
+            },
+            selected: ''
+        }),
+        methods: {},
+        mounted() {
+            /*[# th:each="w : ${teachers}"]*/
+            this.teachers.push({
+                name:/*[[${w.firstName}]]*/'' + '',
+                id:/*[[${w.id}]]*/ ''
+            })
+            /*[/]*/
+            this.course.name=/*[[${course.name}]]*/'';
+            this.course.id=/*[[${course.id}]]*/'';
+        }
+    })
+</script>
+</body>
+</html>

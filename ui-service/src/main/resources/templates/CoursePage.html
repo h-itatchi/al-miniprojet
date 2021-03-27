@@ -12,6 +12,30 @@
     <v-app>
         <v-main>
             <div th:replace="fragments/header :: header"/>
+            <v-list max-width="1000">
+                <v-list-group
+                        v-for="(item,index) in items"
+                        :key="index"
+                        v-model="item.active"
+                        :prepend-icon="item.action"
+                        no-action
+                >
+                    <template v-slot:activator>
+                        <v-list-item-content>
+                            <v-list-item-title v-text="item.title"></v-list-item-title>
+                        </v-list-item-content>
+                    </template>
+
+                    <v-list-item
+                            v-for="(child,index) in item.items"
+                            :key="index"
+                    >
+                        <v-list-item-content>
+                            <v-list-item-title v-text="child.title"></v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list-group>
+            </v-list>
             <v-container class="grey lighten-5" fluid>
                 <v-row v-for="w in this.works" :key="w.id" align="center" justify="center">
                     <v-col ma="8">
@@ -86,6 +110,17 @@
             },
             deleteTarget: 0,
             closeShow: false,
+            items: [
+                {
+                    action: 'mdi-ticket',
+                    items: [
+                        {title: "this.course.description"},
+                        {title: "this.course.credits"},
+                        {title: "this.course.coefficient"},
+                        {title: "this.course.teachers"},
+                    ],
+                    title: 'COURSE INFO',
+                }]
         }),
         methods: {
             closeDelete() {
@@ -110,6 +145,26 @@
                 show: false
             });
             /*[/]*/
+            this.course = {
+                id: /*[[${c.id}]]*/ '0',
+                name: /*[[${c.name}]]*/'',
+                description: /*[[${c.description}]]*/'',
+                credits: /*[[${c.credits}]]*/'',
+                coefficient: /*[[${c.coefficient}]]*/'',
+                teachers: /*[[${c.teachersToString}]]*/'',
+                show: false
+            }
+            this.items = [
+                {
+                    action: 'mdi-ticket',
+                    items: [
+                        {title: ("description : ").toUpperCase() + this.course.description},
+                        {title: ("credits : ").toUpperCase() + this.course.credits},
+                        {title: ("coefficient : ").toUpperCase() + this.course.coefficient},
+                        {title: ("teachers : ").toUpperCase() + this.course.teachers},
+                    ],
+                    title: 'COURSE INFO',
+                }]
         }
     })
 </script>

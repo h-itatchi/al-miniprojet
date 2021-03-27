@@ -55,6 +55,7 @@ public class TeachersController {
         ModelAndView mav;
         String errMessage = "";
         Teacher registered = null;
+        System.out.println(teacher.getPassword());
         // validate user
         if (!teachersRepo.valid(teacher)) {
             errMessage = "teacher info invalid";

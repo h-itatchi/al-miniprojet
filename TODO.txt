@@ -13,23 +13,17 @@ TODO {
             - RestRepository
             - eureka(Client)
         # UI-Service
+            - Add teachers to course
             - Manager page
                 * CRUD course
                 * CRUD teachers
                 * set courses for teachers
-            - implement Repositories
-                * work repository
-            - course page
-                * teacher's info
-                * full course's info
             - appBar
                 * fade-img-on-scroll
             - eureka(Client)
             - move Work methods to courseController
             - validate {addTeacher/addCourse/addWork} using (errorMsg) OR (java script)
             - Manager Role
-            - views
-                * change type (teacher/student) ==> (unauth/auth)
             - app bar info
     }
 
@@ -57,7 +51,13 @@ Completed {
         - addWork card title{add/update}
         - login/signup with vuejs
         - Default Homepage
-
+        - implement Repositories
+            * work repository
+        - views
+            * change type (teacher/student) ==> (unauth/auth)
+        - course page
+            * teacher's info
+            * full course's info
 }
 
 Continue Update {

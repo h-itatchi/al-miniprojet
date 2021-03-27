@@ -115,4 +115,12 @@ public class Course {
     public void setWorks(ArrayList<Work> works) {
         this.works = works;
     }
+
+    public void teachersToString(ArrayList<Teacher> teachers) {
+        final String[] s = {""};
+        teachers.forEach(teacher -> {
+            s[0] += (teacher.getLastName() + " " + teacher.getFirstName() + " ( " + teacher.getEmail() + " ) \n").toUpperCase();
+        });
+        this.teachersToString=s[0];
+    }
 }

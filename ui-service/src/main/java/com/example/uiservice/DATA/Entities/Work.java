@@ -3,6 +3,7 @@ package com.example.uiservice.DATA.Entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Work {
@@ -13,7 +14,7 @@ public class Work {
 
     private long id;
     private String title;
-    private LocalDate date;
+    private Date date;
     private String linkToPDF;
     private String description;
     private String type;
@@ -50,11 +51,11 @@ public class Work {
         this.title = title;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

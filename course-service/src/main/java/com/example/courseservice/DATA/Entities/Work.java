@@ -2,6 +2,7 @@ package com.example.courseservice.DATA.Entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 public class Work {
@@ -14,7 +15,7 @@ public class Work {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
-    private LocalDate date;
+    private Date date;
     private String linkToPDF;
     private String description;
     private String type;
@@ -52,11 +53,11 @@ public class Work {
         this.title = title;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

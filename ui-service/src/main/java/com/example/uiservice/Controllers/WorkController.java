@@ -1,6 +1,5 @@
 package com.example.uiservice.Controllers;
 
-import com.example.uiservice.DATA.Entities.Course;
 import com.example.uiservice.DATA.Entities.Work;
 import com.example.uiservice.DATA.Repositories.Implimentations.CourseRepository;
 import com.example.uiservice.DATA.Repositories.Implimentations.TeacherRepository;
@@ -16,6 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.security.Principal;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Controller
 public class WorkController {
@@ -31,7 +31,7 @@ public class WorkController {
     public String showWorkForm(Model model, @PathVariable String course, WebRequest request) {
         Work work = new Work();
         work.setCourse(course);
-        work.setDate(LocalDate.now());
+        work.setDate(new Date());
         model.addAttribute("work", work);
         model.addAttribute("course", course);
         setModelHeader(model, request.getUserPrincipal());
@@ -44,7 +44,6 @@ public class WorkController {
         setModelHeader(model, request.getUserPrincipal());
         return "redirect:/course/works/" + work.getCourse();
     }
-
 
 
     @GetMapping("/course/works/delete/{course}/{id}")

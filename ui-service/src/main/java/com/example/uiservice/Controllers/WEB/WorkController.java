@@ -1,4 +1,4 @@
-package com.example.uiservice.Controllers;
+package com.example.uiservice.Controllers.WEB;
 
 import com.example.uiservice.DATA.Entities.Work;
 import com.example.uiservice.DATA.Repositories.Implimentations.CourseRepository;

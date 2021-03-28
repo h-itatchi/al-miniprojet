@@ -6,13 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="al-miniprojet" />
-        <module name="config-service" />
         <module name="course-service" />
-        <module name="discovery-service" />
         <module name="proxy-service" />
-        <module name="teachers-service" />
+        <module name="config-service" />
         <module name="ui-service" />
+        <module name="teachers-service" />
+        <module name="discovery-service" />
+        <module name="al-miniprojet" />
       </profile>
     </annotationProcessing>
   </component>

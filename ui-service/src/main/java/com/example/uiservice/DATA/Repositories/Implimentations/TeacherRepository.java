@@ -75,6 +75,19 @@ public class TeacherRepository {
         return false;
     }
 
+    public boolean exists(Teacher teacher) {
+        if (this.existByEmail(teacher.getEmail())) return false;
+        return !this.existByFirstName(teacher.getFirstName());
+    }
+
+    public boolean existByFirstName(String firstName) {
+        return restTemplate.getForObject(teachersService + "/teacher/search/existsByFirstName?name=" + firstName, boolean.class);
+    }
+
+    public boolean existByEmail(String firstName) {
+        return restTemplate.getForObject(teachersService + "/teacher/search/existsByEmail?email=" + firstName, boolean.class);
+    }
+
     public ArrayList<Teacher> findAll() {
         JsonNode json = restTemplate.getForObject(teachersService + "/teacher", JsonNode.class);
         Teacher[] teachers = null;
@@ -110,7 +123,7 @@ public class TeacherRepository {
     }
 
     public boolean valid(Teacher t) {
-        /*if (t.getFirstName().isEmpty()) {
+        if (t.getFirstName().isEmpty()) {
             return false;
         }
         if (t.getLastName().isEmpty()) {
@@ -121,7 +134,7 @@ public class TeacherRepository {
         }
         if (t.getEmail().isEmpty()) {
             return false;
-        }*/
+        }
         return true;
     }
 

@@ -1,5 +1,6 @@
-package com.example.uiservice.DATA.Entities;
+package com.example.uiservice.Config;
 
+import com.example.uiservice.DATA.Entities.Teacher;
 import com.example.uiservice.DATA.Repositories.Implimentations.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;

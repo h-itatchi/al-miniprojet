@@ -3,7 +3,6 @@ package com.example.uiservice.Config;
 import com.example.uiservice.Config.Handlers.CustomAccessDeniedHandler;
 import com.example.uiservice.Config.Handlers.CustomAuthenticationFailureHandler;
 import com.example.uiservice.Config.Handlers.CustomLogoutSuccessHandler;
-import com.example.uiservice.DATA.Entities.TeacherUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

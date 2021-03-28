@@ -95,4 +95,8 @@ public class CourseRepository {
     public boolean validate(Course course) {
         return true;
     }
+
+    public boolean existByName(String name) {
+        return restTemplate.getForObject(coursesService + "/course/search/existsByName?name=" + name, boolean.class);
+    }
 }

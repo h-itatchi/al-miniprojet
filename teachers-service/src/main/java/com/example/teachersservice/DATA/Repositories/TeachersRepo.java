@@ -9,4 +9,8 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 public interface TeachersRepo extends PagingAndSortingRepository<Teacher, Long> {
     // add more functions
     Teacher findByEmail(@Param("email") String email);
+
+    boolean existsByFirstName(@Param("name") String name);
+
+    boolean existsByEmail(@Param("email") String name);
 }

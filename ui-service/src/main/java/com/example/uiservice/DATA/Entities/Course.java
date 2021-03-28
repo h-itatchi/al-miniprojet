@@ -17,7 +17,7 @@ public class Course {
     private int volHTP;
     private int volHCourse;
     private ArrayList<Integer> teachers;
-    private String teachersToString;
+    private String teachersText;
     private ArrayList<Work> works;
 
     public Course() {
@@ -92,12 +92,12 @@ public class Course {
         this.teachers = teachers;
     }
 
-    public String getTeachersToString() {
-        return teachersToString;
+    public String getTeachersText() {
+        return teachersText;
     }
 
-    public void setTeachersToString(String teachersToString) {
-        this.teachersToString = teachersToString;
+    public void setTeachersText(String teachersText) {
+        this.teachersText = teachersText;
     }
 
     public long getId() {
@@ -121,6 +121,6 @@ public class Course {
         teachers.forEach(teacher -> {
             s[0] += (teacher.getLastName() + " " + teacher.getFirstName() + " ( " + teacher.getEmail() + " ) \n").toUpperCase();
         });
-        this.teachersToString=s[0];
+        this.teachersText =s[0];
     }
 }

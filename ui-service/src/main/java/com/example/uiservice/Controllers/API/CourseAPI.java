@@ -39,9 +39,14 @@ public class CourseAPI {
         return ResponseEntity.ok(courseRepo.save(course));
     }
 
-    @GetMapping(value = "/api/course")
-    public ResponseEntity<ArrayList<Course>> getAll() {
-        final ArrayList<Course> courses = new ArrayList<>(courseRepo.findAll());
+    @GetMapping(value = "/api/course/{id}")
+    public ResponseEntity<ArrayList<Course>> getAll(@PathVariable String id) {
+        final ArrayList<Course> courses;
+        if (id.equals("0")) {
+            courses = new ArrayList<>(courseRepo.findAll());
+        } else {
+            courses = new ArrayList<>(courseRepo.getTeacherCourses(Long.parseLong(id)));
+        }
         courses.forEach(course -> {
             course.teachersToString(teachersRepo.findAllById(course.getTeachers()));
             System.out.println(course.getTeachersText());

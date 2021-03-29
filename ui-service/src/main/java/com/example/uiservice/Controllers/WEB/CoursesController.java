@@ -93,7 +93,6 @@ public class CoursesController {
 
     @GetMapping({"/course/{id}/{teacher}", "/t/{id}/{teacher}"})
     public String setTeachers(WebRequest request, Model model, @PathVariable String id, @PathVariable String teacher) {
-
         Course course = courseRepo.findById(Long.parseLong(id));
         course.getTeachers().add(Integer.parseInt(teacher));
         courseRepo.update(course);
